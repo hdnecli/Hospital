@@ -1,3 +1,5 @@
+using System.ComponentModel.DataAnnotations.Schema;
+
 namespace HastaneNamespace.Models
 {
     public class Kullanici

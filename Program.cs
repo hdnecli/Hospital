@@ -1,5 +1,5 @@
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Design;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 using HastaneNamespace.Data;
 
@@ -11,6 +11,15 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseMySql(builder.Configuration.GetConnectionString("DefaultConnection"),
     new MySqlServerVersion(new Version(8, 0, 21))));
+
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+    .AddCookie(options =>
+    {
+        options.LoginPath = "/Kullanici/Login"; // Login path
+        options.AccessDeniedPath = "/Home/AccessDenied"; // Access denied path
+    });
+
+builder.Services.AddAuthorization();
 
 var app = builder.Build();
 
@@ -27,7 +36,8 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
-app.UseAuthorization();
+app.UseAuthentication(); // Add authentication
+app.UseAuthorization(); // Add authorization
 
 app.MapControllerRoute(
     name: "default",

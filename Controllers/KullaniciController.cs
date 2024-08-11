@@ -1,6 +1,10 @@
 using Microsoft.AspNetCore.Mvc;
 using HastaneNamespace.Data;
 using System.Linq;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using System.Security.Claims;
+using System.Threading.Tasks;
 
 namespace TaniProjesi.Controllers
 {
@@ -15,22 +19,39 @@ namespace TaniProjesi.Controllers
 
         public IActionResult Login()
         {
+            ViewData["Title"] = "Giriş Ekranı";
             return View();
         }
 
         [HttpPost]
-        public IActionResult Login(string kullanici_adi, string sifre)
+        public async Task<IActionResult> Login(string kullanici_adi, string sifre)
         {
             var kullanici = _context.Kullanicilar.FirstOrDefault(k => k.Kullanici_adi == kullanici_adi && k.Sifre == sifre);
             if (kullanici != null)
             {
                 // Giriş başarılı, Tanı Girişi ekranına yönlendir.
+                var claims = new List<Claim>
+                {
+                    new Claim(ClaimTypes.Name, kullanici.Kullanici_adi),
+                    new Claim(ClaimTypes.NameIdentifier, kullanici.ID.ToString())
+                };
+
+                var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+
+                await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity));
+                
+                ViewData["Title"] = "Tanı Girişi";
                 return RedirectToAction("Index", "Tani");
             }
 
             // Hatalı giriş
             ViewBag.Message = "Kullanıcı adı veya şifre hatalı.";
             return View();
+        }
+        public async Task<IActionResult> Logout()
+        {
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            return RedirectToAction("Login");
         }
     }
 }
