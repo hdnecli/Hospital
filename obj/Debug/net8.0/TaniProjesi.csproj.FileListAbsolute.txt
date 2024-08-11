@@ -102,3 +102,4 @@
 /home/hamdi/Desktop/Acibadem/TaniProjesi/obj/Debug/net8.0/TaniProjesi.pdb
 /home/hamdi/Desktop/Acibadem/TaniProjesi/obj/Debug/net8.0/TaniProjesi.genruntimeconfig.cache
 /home/hamdi/Desktop/Acibadem/TaniProjesi/obj/Debug/net8.0/ref/TaniProjesi.dll
+/home/hamdi/Desktop/Acibadem/TaniProjesi/obj/Debug/net8.0/TaniProjesi.sourcelink.json
