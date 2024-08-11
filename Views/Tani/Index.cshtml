@@ -9,29 +9,38 @@
     <button id="favoritesBtn" onclick="showFavorites()">Sık Kullanılanlar</button>
 </div>
 
-<form method="get" action="/Tani/Index">
+<form method="get" action="/Tani/Index" style="text-align: center; margin-bottom: 20px;">
     <input type="text" name="search" placeholder="Tanı kodu veya adıyla ara">
     <button type="submit">Ara</button>
 </form>
 
-<div id="tanilar" style="height: 200px; overflow-y: scroll;">
-    @foreach (var tani in Model)
-    {
-        <div>
-            <input type="checkbox" value="@tani.ID" /> @tani.Tani_adi
-            <span onclick="toggleFavorite(@tani.ID)">★</span>
-        </div>
-    }
+<!-- Tanılar kısmını kutu içine al ve başlık ekle -->
+<div class="tanilar-container" style="height: 300px; overflow-y: auto; border: 1px solid #ddd; padding: 10px;">
+    <h3>Tanılar</h3>
+    <div id="tanilar">
+        @foreach (var tani in Model)
+        {
+            <div>
+                <input type="checkbox" id="tani_@tani.ID" value="@tani.ID" />
+                <span>@tani.Tani_kodu - @tani.Tani_adi</span>
+            </div>
+        }
+    </div>
 </div>
 
-<div id="selectedTanilar">
+<!-- Başvuruya Ait Tanılar kısmı -->
+<div id="selectedTanilar" style="border: 1px solid #ddd; padding: 10px;">
     <h3>Başvuruya Ait Tanılar</h3>
+    <button type="button" onclick="addSelectedTanilar()">Seçilenleri Ekle</button>
     <div id="selectedList">
         <!-- Seçilen tanılar buraya eklenecek -->
     </div>
 </div>
 
 <script>
+    let page = 1;
+    const pageSize = 10;
+
     function showAll() {
         document.getElementById('tanilar').style.display = 'block';
         document.getElementById('favorites').style.display = 'none';
@@ -42,9 +51,23 @@
         document.getElementById('favorites').style.display = 'block';
     }
 
-    function addSelectedTani(id, name) {
+    function addSelectedTanilar() {
+        const selectedCheckboxes = document.querySelectorAll('#tanilar input[type="checkbox"]:checked');
+        selectedCheckboxes.forEach(checkbox => {
+            const taniId = checkbox.value;
+            const taniSpan = checkbox.nextElementSibling; // Use nextElementSibling to get the span
+            if (taniSpan) {
+                const taniCodeAndName = taniSpan.textContent.trim();
+                const [taniCode, taniName] = taniCodeAndName.split(' - ');
+                addToSelected(taniId, taniName, taniCode);
+            }
+            checkbox.checked = false; // Uncheck the box after adding
+        });
+    }
+
+    function addToSelected(id, name, code) {
         const taniItem = document.createElement('div');
-        taniItem.innerHTML = `${name} <span onclick="removeTani(this)">[Sil]</span>`;
+        taniItem.innerHTML = `${code} - ${name} <span onclick="removeTani(this)">[Sil]</span>`;
         document.getElementById('selectedList').appendChild(taniItem);
     }
 
@@ -52,11 +75,20 @@
         element.parentElement.remove();
     }
 
-    function toggleFavorite(taniId) {
-        const url = `/Tani/AddToFavorites/${taniId}`;
-        fetch(url, { method: 'POST' })
-            .then(() => {
-                alert('Favorilere eklendi veya çıkarıldı.');
+    function fetchMoreTanilar() {
+        const url = `/Tani/Index?search=&page=${++page}`;
+        fetch(url)
+            .then(response => response.text())
+            .then(data => {
+                const newContent = new DOMParser().parseFromString(data, 'text/html').getElementById('tanilar').innerHTML;
+                document.getElementById('tanilar').innerHTML += newContent;
             });
     }
+
+    // Infinite scrolling functionality
+    document.querySelector('.tanilar-container').addEventListener('scroll', function() {
+        if (this.scrollTop + this.clientHeight >= this.scrollHeight) {
+            fetchMoreTanilar();
+        }
+    });
 </script>
