@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using HastaneNamespace.Data;
 using HastaneNamespace.Models;
 using System.Security.Claims;
-
+using Microsoft.EntityFrameworkCore;
 
 namespace TaniProjesi.Controllers
 {
@@ -18,13 +18,22 @@ namespace TaniProjesi.Controllers
             _context = context;
         }
 
-        public IActionResult Index()
+        public IActionResult Index(string search, int page = 1)
         {
-            var tanilar = _context.Tanilar.ToList();
-            return View(tanilar);
+            int pageSize = 10;
+            var tanilar = from t in _context.Tanilar select t;
+
+            if (!String.IsNullOrEmpty(search))
+            {
+                tanilar = tanilar.Where(s => s.Tani_kodu.Contains(search) || s.Tani_adi.Contains(search));
+            }
+
+            var paginatedTanilar = tanilar.Skip((page - 1) * pageSize).Take(pageSize).ToList();
+
+            return View(paginatedTanilar);
         }
 
-            [HttpPost]
+        [HttpPost]
         public IActionResult AddToFavorites(int id)
         {
             var tani = _context.Tanilar.Find(id);
@@ -45,6 +54,23 @@ namespace TaniProjesi.Controllers
                 {
                     // userIdString null veya geçersizse yapılacak işlem
                     // Burada hata loglama veya uygun bir işlem yapabilirsin.
+                }
+            }
+
+            return RedirectToAction(nameof(Index));
+        }
+
+        [HttpPost]
+        public IActionResult RemoveFromFavorites(int id)
+        {
+            var userIdString = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            if (int.TryParse(userIdString, out int userId))
+            {
+                var favori = _context.Favoriler.FirstOrDefault(f => f.Tani_ID == id && f.Kullanici_kodu == userId);
+                if (favori != null)
+                {
+                    _context.Favoriler.Remove(favori);
+                    _context.SaveChanges();
                 }
             }
 

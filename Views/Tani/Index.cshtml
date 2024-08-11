@@ -4,33 +4,59 @@
 
 @model IEnumerable<HastaneNamespace.Models.Tani>
 
-<h2>Tanı Girişi</h2>
+<div class="button-group">
+    <button id="allBtn" onclick="showAll()">Tümü</button>
+    <button id="favoritesBtn" onclick="showFavorites()">Sık Kullanılanlar</button>
+</div>
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>ID</th>
-            <th>Tanı Kodu</th>
-            <th>Tanı Adı</th>
-            <th>Durum</th>
-            <th>Favorilere Ekle</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var tani in Model)
-        {
-            <tr>
-                <td>@tani.ID</td>
-                <td>@tani.Tani_kodu</td>
-                <td>@tani.Tani_adi</td>
-                <td>@tani.Durum</td>
-                <td>
-                    <form asp-action="AddToFavorites" method="post">
-                        <input type="hidden" name="id" value="@tani.ID" />
-                        <button type="submit" class="btn btn-primary">Favorilere Ekle</button>
-                    </form>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+<form method="get" action="/Tani/Index">
+    <input type="text" name="search" placeholder="Tanı kodu veya adıyla ara">
+    <button type="submit">Ara</button>
+</form>
+
+<div id="tanilar" style="height: 200px; overflow-y: scroll;">
+    @foreach (var tani in Model)
+    {
+        <div>
+            <input type="checkbox" value="@tani.ID" /> @tani.Tani_adi
+            <span onclick="toggleFavorite(@tani.ID)">★</span>
+        </div>
+    }
+</div>
+
+<div id="selectedTanilar">
+    <h3>Başvuruya Ait Tanılar</h3>
+    <div id="selectedList">
+        <!-- Seçilen tanılar buraya eklenecek -->
+    </div>
+</div>
+
+<script>
+    function showAll() {
+        document.getElementById('tanilar').style.display = 'block';
+        document.getElementById('favorites').style.display = 'none';
+    }
+
+    function showFavorites() {
+        document.getElementById('tanilar').style.display = 'none';
+        document.getElementById('favorites').style.display = 'block';
+    }
+
+    function addSelectedTani(id, name) {
+        const taniItem = document.createElement('div');
+        taniItem.innerHTML = `${name} <span onclick="removeTani(this)">[Sil]</span>`;
+        document.getElementById('selectedList').appendChild(taniItem);
+    }
+
+    function removeTani(element) {
+        element.parentElement.remove();
+    }
+
+    function toggleFavorite(taniId) {
+        const url = `/Tani/AddToFavorites/${taniId}`;
+        fetch(url, { method: 'POST' })
+            .then(() => {
+                alert('Favorilere eklendi veya çıkarıldı.');
+            });
+    }
+</script>
