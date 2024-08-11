@@ -2,4 +2,35 @@
     ViewData["Title"] = "Tanı Girişi";
 }
 
-<h1 class="display-4">Tanı Girişi</h1>
+@model IEnumerable<HastaneNamespace.Models.Tani>
+
+<h2>Tanı Girişi</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Tanı Kodu</th>
+            <th>Tanı Adı</th>
+            <th>Durum</th>
+            <th>Favorilere Ekle</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var tani in Model)
+        {
+            <tr>
+                <td>@tani.ID</td>
+                <td>@tani.Tani_kodu</td>
+                <td>@tani.Tani_adi</td>
+                <td>@tani.Durum</td>
+                <td>
+                    <form asp-action="AddToFavorites" method="post">
+                        <input type="hidden" name="id" value="@tani.ID" />
+                        <button type="submit" class="btn btn-primary">Favorilere Ekle</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
