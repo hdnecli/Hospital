@@ -1,0 +1,23 @@
+@{
+    ViewBag.Title = "Login";
+}
+
+<h2>Login</h2>
+
+@if (ViewBag.Message != null)
+{
+    <div class="alert alert-danger">
+        @ViewBag.Message
+    </div>
+}
+<form asp-action="Login" method="post">
+    <div>
+        <label for="kullanici_adi">Kullanici Adi</label>
+        <input type="text" name="kullanici_adi" id="kullanici_adi" required />
+    </div>
+    <div>
+        <label for="sifre">Sifre</label>
+        <input type="password" name="sifre" id="sifre" required />
+    </div>
+    <button type="submit">Giriş Yap</button>
+</form>
