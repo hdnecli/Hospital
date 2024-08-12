@@ -10,9 +10,9 @@ const searchBar = document.getElementById('search-bar');
 
 function showAll() {
     searchBar.value = '';
-    sessionStorage.setItem('searchQuery', '');
     sessionStorage.removeItem('searchQuery');
     fetchMoreTanilar(true);
+    window.location.href = '/Tani/Index';
 }
 
 function showFavorites() {
@@ -21,21 +21,23 @@ function showFavorites() {
 }
 
 function addSelectedTanilar() {
-    const selectedCheckboxesElements = document.querySelectorAll('#tanilar input[type="checkbox"]:checked');
+    const selectedCheckboxesElements = JSON.parse(sessionStorage.getItem('selected'));
     selectedCheckboxesElements.forEach(checkbox => {
-        const taniId = checkbox.value;
-        if (selectedTanilar.has(taniId)) return; // Skip if already added
-
-        const taniSpan = checkbox.nextElementSibling; // Use nextElementSibling to get the span
-        if (taniSpan) {
-            const taniCodeAndName = taniSpan.textContent.trim();
-            const [taniCode, taniName] = taniCodeAndName.split(' - ');
-            addToSelected(taniId, taniName, taniCode);
-            selectedTanilar.add(taniId); // Add to the set
-            allCheckboxes[taniId] = checkbox; // Store checkbox reference
-            checkbox.disabled = true; // Disable checkbox to prevent re-selection
+        const taniId = checkbox.id;
+        const taniName = checkbox.name;
+        const taniCode = checkbox.code;
+        
+        if (selectedCheckboxesElements.find(x => x.id === taniId && x.isSelected === true)) {
+            return;
         }
+        const domCheckbox = document.getElementById(`${taniId}`); // Retrieve the checkbox element
+        domCheckbox.checked = true; // Uncheck the checkbox
+        domCheckbox.disabled = true; // Enable the checkbox
+
+        addToSelected(taniId, taniName, taniCode);
+        checkbox.isSelected = true; // Set isSelected property to true
     });
+    sessionStorage.setItem('selected', JSON.stringify(selectedCheckboxesElements)); // Update sessionStorage with the new selected tanilar
 }
 
 function addToSelected(id, name, code) {
@@ -68,18 +70,20 @@ function toggleFavorite(taniId, element) {
 function removeTani(element) {
     const item = element.parentElement;
     const taniId = item.dataset.id; // Retrieve the ID from the data attribute
+    const selected = JSON.parse(sessionStorage.getItem('selected'));
 
-    // Remove from the selected tanilar set
-    selectedTanilar.delete(taniId);
+    selected.find((x, index) => {
+        if(x.id === taniId){
+            selected.splice(index, 1); // Remove the item from the selected array
+    }});  // Remove the item from the selected array
 
     // Remove item from the selected list
     item.remove();
 
-    // Re-enable the corresponding checkbox
-    if (allCheckboxes[taniId]) {
-        allCheckboxes[taniId].checked = false; // Uncheck the box
-        allCheckboxes[taniId].disabled = false; // Re-enable the checkbox
-    }
+    const checkbox = document.getElementById(`${taniId}`); // Retrieve the checkbox element
+    checkbox.checked = false; // Uncheck the checkbox
+    checkbox.disabled = false; // Enable the checkbox
+    sessionStorage.setItem('selected', JSON.stringify(selected)); // Update sessionStorage with the new selected tanilar
 }
 
 function fetchMoreTanilar(isdefault) {
@@ -134,6 +138,21 @@ document.querySelector('#tanilar').addEventListener('change', function(event) {
 });
 
 document.addEventListener('DOMContentLoaded', function() {
+    let selected = JSON.parse(sessionStorage.getItem('selected'));
+    if (selected) {
+        selected.forEach(checkbox => {
+            const domCheckbox = document.getElementById(`${checkbox.id}`); // Retrieve the checkbox element
+            if (domCheckbox) {
+                domCheckbox.checked = true; // Uncheck the checkbox
+            }
+            if (checkbox.isSelected) {
+                addToSelected(checkbox.id, checkbox.name, checkbox.code);
+                if (domCheckbox) {
+                    domCheckbox.disabled = true; // Uncheck the checkbox
+                }
+            } 
+        }); // Update checkbox states on page load
+    } 
     // Sayfa yüklendiğinde, cache'den (sessionStorage) veriyi al ve input'a yerleştir
     if (cachedSearch) {
         searchBar.value = cachedSearch;
@@ -157,12 +176,25 @@ document.addEventListener('DOMContentLoaded', function() {
     // Checkbox'lar değiştiğinde sessionStorage'ı güncelle
     checkboxes.forEach(checkbox => {
         checkbox.addEventListener('change', function() {
-            if (this.checked) {
-                sessionStorage.setItem(this.id, 'true'); // Checkbox işaretliyse sessionStorage'a ekle
-            } else {
-                sessionStorage.removeItem(this.id); // Checkbox işaretli değilse sessionStorage'dan sil
+            let selected = JSON.parse(sessionStorage.getItem('selected'));
+            if (!selected) {
+                selected = [];
             }
+            if (this.checked) {
+                const taniSpan = checkbox.nextElementSibling; // Use nextElementSibling to get the span
+                if (taniSpan) {
+                    const taniCodeAndName = taniSpan.textContent.trim();
+                    var [taniCode, taniName] = taniCodeAndName.split(' - ');
+                }
+                selected.push({ id: this.id, isSelected: false, code: taniCode, name: taniName}); // Checkbox işaretliyse sessionStorage'a ekle
+            } else {
+                selected.find((x, index) => {if(x.id === this.id){
+                    selected.splice(index, 1); // Remove the item from the selected array
+                }}); 
+            }
+            sessionStorage.setItem('selected', JSON.stringify(selected));
         });
     });
+
 });
 
