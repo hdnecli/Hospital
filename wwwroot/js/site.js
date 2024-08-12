@@ -5,7 +5,7 @@
 let page = 1;
 const selectedTanilar = new Set(); // Set to keep track of selected tanilar
 const allCheckboxes = {}; // Object to keep track of all checkboxes
-var cachedSearch = sessionStorage.getItem('searchQuery');
+let cachedSearch = sessionStorage.getItem('searchQuery');
 const searchBar = document.getElementById('search-bar');
 
 function showAll() {
@@ -83,6 +83,7 @@ function removeTani(element) {
 }
 
 function fetchMoreTanilar(isdefault) {
+    cachedSearch = sessionStorage.getItem('searchQuery');
     if (isdefault) {
         page = 1;
     }
