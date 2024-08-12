@@ -20,12 +20,14 @@ namespace TaniProjesi.Controllers
 
         public IActionResult Index(string search, int page = 1)
         {
-            int pageSize = 10;
+            int pageSize = 15;
             var tanilar = from t in _context.Tanilar select t;
 
             if (!String.IsNullOrEmpty(search))
             {
                 tanilar = tanilar.Where(s => s.Tani_kodu.Contains(search) || s.Tani_adi.Contains(search));
+                var paginatedTanilarSearched = tanilar.ToList();
+                return View(paginatedTanilarSearched);
             }
 
             var paginatedTanilar = tanilar.Skip((page - 1) * pageSize).Take(pageSize).ToList();

@@ -69,3 +69,12 @@ body {
   color: red;
   font-weight: bold;
 }
+
+.scrollable {
+  overflow-y: auto; /* Normalde scroll edilebilir yap */
+  max-height: 300px; /* İhtiyacınıza göre yükseklik belirleyin */
+}
+
+.no-scroll {
+  overflow-y: hidden; /* Scroll'u engelle */
+}
