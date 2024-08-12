@@ -34,7 +34,7 @@ namespace TaniProjesi.Controllers
         }
 
         [HttpPost]
-        public IActionResult AddToFavorites(int id)
+        public IActionResult AddToFavorites([FromBody] int id)
         {
             var tani = _context.Tanilar.Find(id);
             if (tani != null)
@@ -50,18 +50,12 @@ namespace TaniProjesi.Controllers
                     _context.Favoriler.Add(favori);
                     _context.SaveChanges();
                 }
-                else
-                {
-                    // userIdString null veya geçersizse yapılacak işlem
-                    // Burada hata loglama veya uygun bir işlem yapabilirsin.
-                }
             }
-
-            return RedirectToAction(nameof(Index));
+            return Ok(); // Geriye başarılı olduğunu belirten bir yanıt dön
         }
 
         [HttpPost]
-        public IActionResult RemoveFromFavorites(int id)
+        public IActionResult RemoveFromFavorites([FromBody] int id)
         {
             var userIdString = User.FindFirstValue(ClaimTypes.NameIdentifier);
             if (int.TryParse(userIdString, out int userId))
@@ -73,8 +67,7 @@ namespace TaniProjesi.Controllers
                     _context.SaveChanges();
                 }
             }
-
-            return RedirectToAction(nameof(Index));
+            return Ok(); // Geriye başarılı olduğunu belirten bir yanıt dön
         }
     }
 }

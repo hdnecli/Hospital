@@ -2,7 +2,6 @@
 // for details on configuring this project to bundle and minify static web assets.
 
 // Write your JavaScript code.
-
 let page = 1;
 const pageSize = 10;
 const selectedTanilar = new Set(); // Set to keep track of selected tanilar
@@ -39,8 +38,28 @@ function addSelectedTanilar() {
 function addToSelected(id, name, code) {
     const taniItem = document.createElement('div');
     taniItem.dataset.id = id; // Store the ID in a data attribute
-    taniItem.innerHTML = `${code} - ${name} <span class="removeTani" onclick="removeTani(this)">[Sil]</span>`;
+    taniItem.innerHTML = `
+        ${code} - ${name} 
+        <span class="favoriteTani" onclick="toggleFavorite(${id}, this)">[☆]</span>
+        <span class="removeTani" onclick="removeTani(this)">[Sil]</span>`;
     document.getElementById('selectedList').appendChild(taniItem);
+}
+
+function toggleFavorite(taniId, element) {
+    const isFavorite = element.textContent === '[★]';
+    const url = isFavorite ? '/Tani/RemoveFromFavorites' : '/Tani/AddToFavorites';
+    fetch(url, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'RequestVerificationToken': $('input[name="__RequestVerificationToken"]').val()
+        },
+        body: JSON.stringify({ id: taniId })
+    }).then(response => {
+        if (response.ok) {
+            element.textContent = isFavorite ? '[☆]' : '[★]'; // Toggle the star symbol
+        }
+    });
 }
 
 function removeTani(element) {
@@ -65,10 +84,24 @@ function fetchMoreTanilar() {
     fetch(url)
         .then(response => response.text())
         .then(data => {
+            // Yeni verileri mevcut olanın altına ekliyoruz
             const newContent = new DOMParser().parseFromString(data, 'text/html').getElementById('tanilar').innerHTML;
-            document.getElementById('tanilar').innerHTML += newContent;
-            disableCheckboxes(); // Update checkbox states after fetching more tanilar
+            document.getElementById('tanilar').insertAdjacentHTML('beforeend', newContent);
+            restoreCheckboxState(); // Restore checkbox states after fetching more tanilar
         });
+}
+
+
+// Restore checkbox state for already selected tanilar
+function restoreCheckboxState() {
+    const allTanilarCheckboxes = document.querySelectorAll('#tanilar input[type="checkbox"]');
+    allTanilarCheckboxes.forEach(checkbox => {
+        const taniId = checkbox.value;
+        if (selectedTanilar.has(taniId)) {
+            checkbox.disabled = true;
+            checkbox.checked = true;
+        }
+    });
 }
 
 // Infinite scrolling functionality
@@ -81,7 +114,7 @@ document.querySelector('.tanilar-container').addEventListener('scroll', function
 // Event listener for checkbox changes
 document.querySelector('#tanilar').addEventListener('change', function(event) {
     if (event.target.type === 'checkbox') {
-        disableCheckboxes(); // Update checkbox states on change
+        restoreCheckboxState(); // Update checkbox states on change
     }
 });
 
