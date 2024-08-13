@@ -21,7 +21,7 @@ namespace TaniProjesi.Controllers
         public IActionResult Index(string search, int page = 1)
         {
             int pageSize = 15;
-            var tanilar = from t in _context.Tanilar select t;
+            var tanilar = from t in _context.Tani select t;
 
             if (!String.IsNullOrEmpty(search))
             {
@@ -38,7 +38,7 @@ namespace TaniProjesi.Controllers
         [HttpPost]
         public IActionResult AddToFavorites([FromBody] int id)
         {
-            var tani = _context.Tanilar.Find(id);
+            var tani = _context.Tani.Find(id);
             if (tani != null)
             {
                 var userIdString = User.FindFirstValue(ClaimTypes.NameIdentifier);
@@ -49,7 +49,7 @@ namespace TaniProjesi.Controllers
                         Tani_ID = tani.ID,
                         Kullanici_kodu = userId
                     };
-                    _context.Favoriler.Add(favori);
+                    _context.Favori.Add(favori);
                     _context.SaveChanges();
                 }
             }
@@ -62,10 +62,10 @@ namespace TaniProjesi.Controllers
             var userIdString = User.FindFirstValue(ClaimTypes.NameIdentifier);
             if (int.TryParse(userIdString, out int userId))
             {
-                var favori = _context.Favoriler.FirstOrDefault(f => f.Tani_ID == id && f.Kullanici_kodu == userId);
+                var favori = _context.Favori.FirstOrDefault(f => f.Tani_ID == id && f.Kullanici_kodu == userId);
                 if (favori != null)
                 {
-                    _context.Favoriler.Remove(favori);
+                    _context.Favori.Remove(favori);
                     _context.SaveChanges();
                 }
             }

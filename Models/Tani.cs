@@ -2,7 +2,6 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace HastaneNamespace.Models
 {
-    [Table("Tani")]
     public class Tani
     {
         public int ID { get; set; }

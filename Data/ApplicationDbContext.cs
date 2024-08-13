@@ -10,9 +10,9 @@ namespace HastaneNamespace.Data // YourProjectNamespace kısmını projenizin na
         {
         }
 
-        public DbSet<Tani> Tanilar { get; set; }
-        public DbSet<Favori> Favoriler { get; set; }
-        public DbSet<Kullanici> Kullanicilar { get; set; }
+        public DbSet<Tani> Tani { get; set; }
+        public DbSet<Favori> Favori { get; set; }
+        public DbSet<Kullanici> Kullanici { get; set; }
 
         // Diğer DbSet tanımlamaları burada yer alacak...
     }

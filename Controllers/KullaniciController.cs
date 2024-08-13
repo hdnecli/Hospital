@@ -26,7 +26,7 @@ namespace TaniProjesi.Controllers
         [HttpPost]
         public async Task<IActionResult> Login(string kullanici_adi, string sifre)
         {
-            var kullanici = _context.Kullanicilar.FirstOrDefault(k => k.Kullanici_adi == kullanici_adi && k.Sifre == sifre);
+            var kullanici = _context.Kullanici.FirstOrDefault(k => k.Kullanici_adi == kullanici_adi && k.Sifre == sifre);
             if (kullanici != null)
             {
                 // Giriş başarılı, Tanı Girişi ekranına yönlendir.
