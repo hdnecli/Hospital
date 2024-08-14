@@ -6,8 +6,8 @@ public class Favori
     public int Tani_ID { get; set; }
     public int Kullanici_kodu { get; set; }
 
-    public virtual Tani? Tani { get; set; }
-    public virtual Kullanici? Kullanici { get; set; }
+    //public virtual Tani? Tani { get; set; }
+    //public virtual Kullanici? Kullanici { get; set; }
 }
 
 }

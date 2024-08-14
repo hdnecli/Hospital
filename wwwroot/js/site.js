@@ -11,13 +11,14 @@ const searchBar = document.getElementById('search-bar');
 function showAll() {
     searchBar.value = '';
     sessionStorage.removeItem('searchQuery');
-    fetchMoreTanilar(true);
+    fetchMoreTanilar(true, false);
     window.location.href = '/Tani/Index';
 }
 
 function showFavorites() {
-    document.getElementById('tanilar').style.display = 'none';
-    document.getElementById('favorites').style.display = 'block';
+    searchBar.value = '';
+    sessionStorage.removeItem('searchQuery');
+    fetchMoreTanilar(true, true);
 }
 
 function addSelectedTanilar() {
@@ -26,7 +27,7 @@ function addSelectedTanilar() {
         const taniId = checkbox.id;
         const taniName = checkbox.name;
         const taniCode = checkbox.code;
-        
+
         if (selectedCheckboxesElements.find(x => x.id === taniId && x.isSelected === true)) {
             return;
         }
@@ -34,36 +35,55 @@ function addSelectedTanilar() {
         domCheckbox.checked = true; // Uncheck the checkbox
         domCheckbox.disabled = true; // Enable the checkbox
 
-        addToSelected(taniId, taniName, taniCode);
+        checkFavorite(taniId.replace("tani_","")).then(isDBFavorite => {
+            addToSelected(taniId, taniName, taniCode, isDBFavorite);
+        });
         checkbox.isSelected = true; // Set isSelected property to true
     });
     sessionStorage.setItem('selected', JSON.stringify(selectedCheckboxesElements)); // Update sessionStorage with the new selected tanilar
 }
 
-function addToSelected(id, name, code) {
+function addToSelected(id, name, code, isDBFavorite) {
     const taniItem = document.createElement('div');
     taniItem.dataset.id = id; // Store the ID in a data attribute
-    taniItem.innerHTML = `
-        ${code} - ${name} 
-        <span class="favoriteTani" onclick="toggleFavorite(${id}, this)">[☆]</span>
-        <span class="removeTani" onclick="removeTani(this)">[Sil]</span>`;
+    if (isDBFavorite) {
+        taniItem.innerHTML = `
+            ${code} - ${name} 
+            <span class="favoriteTani" onclick="toggleFavorite(${id}, this)">[★]</span>
+            <span class="removeTani" onclick="removeTani(this)">[Sil]</span>`;
+    } else {
+        taniItem.innerHTML = `
+            ${code} - ${name} 
+            <span class="favoriteTani" onclick="toggleFavorite(${id}, this)">[☆]</span>
+            <span class="removeTani" onclick="removeTani(this)">[Sil]</span>`;
+    }
     document.getElementById('selectedList').appendChild(taniItem);
 }
 
 function toggleFavorite(taniId, element) {
     const isFavorite = element.textContent === '[★]';
-    const url = isFavorite ? '/Tani/RemoveFromFavorites' : '/Tani/AddToFavorites';
+    let url = isFavorite ? '/Tani/RemoveFromFavorites' : '/Tani/AddToFavorites';
+    url += `?id=${taniId.value}`;
     fetch(url, {
         method: 'POST',
         headers: {
-            'Content-Type': 'application/json',
-            'RequestVerificationToken': $('input[name="__RequestVerificationToken"]').val()
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ id: taniId })
+        //body: JSON.stringify({ id: taniId.value })
     }).then(response => {
         if (response.ok) {
             element.textContent = isFavorite ? '[☆]' : '[★]'; // Toggle the star symbol
         }
+    });
+}
+
+function checkFavorite(taniId) {
+    const url = `/Tani/IsFavorite?id=${taniId}`;
+    return fetch(url)
+    .then(response => response.json())    
+    .then(data => {
+        return data.isFavorite;
     });
 }
 
@@ -86,7 +106,7 @@ function removeTani(element) {
     sessionStorage.setItem('selected', JSON.stringify(selected)); // Update sessionStorage with the new selected tanilar
 }
 
-function fetchMoreTanilar(isdefault) {
+function fetchMoreTanilar(isdefault, isFavorite) {
     cachedSearch = sessionStorage.getItem('searchQuery');
     if (isdefault) {
         page = 1;
@@ -94,9 +114,9 @@ function fetchMoreTanilar(isdefault) {
     else {
         ++page;
     }
-    let url = `/Tani/Index?search=${cachedSearch}&page=${page}`;
+    let url = `/Tani/Index?search=${cachedSearch}&page=${page}&isFavorites=${isFavorite}`;
     if (cachedSearch === null) {
-        url = `/Tani/Index?page=${page}`;
+        url = `/Tani/Index?page=${page}&isFavorites=${isFavorite}`;
     }
     fetch(url)
         .then(response => response.text())
@@ -146,7 +166,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 domCheckbox.checked = true; // Uncheck the checkbox
             }
             if (checkbox.isSelected) {
-                addToSelected(checkbox.id, checkbox.name, checkbox.code);
+                checkFavorite(checkbox.id.replace("tani_","")).then(isDBFavorite => {
+                    addToSelected(checkbox.id, checkbox.name, checkbox.code, isDBFavorite);
+                });
                 if (domCheckbox) {
                     domCheckbox.disabled = true; // Uncheck the checkbox
                 }
