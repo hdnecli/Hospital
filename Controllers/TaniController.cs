@@ -67,7 +67,7 @@ namespace TaniProjesi.Controllers
                     return Ok("Added to favorites");// Geriye başarılı olduğunu belirten bir yanıt dön
                 }
             }
-            throw new Exception("Did not Removed from favorites");
+            throw new Exception("Did not Added to favorites");
         }
 
         [HttpPost]

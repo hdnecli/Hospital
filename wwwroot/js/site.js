@@ -32,8 +32,8 @@ function addSelectedTanilar() {
             return;
         }
         const domCheckbox = document.getElementById(`${taniId}`); // Retrieve the checkbox element
-        domCheckbox.checked = true; // Uncheck the checkbox
-        domCheckbox.disabled = true; // Enable the checkbox
+        domCheckbox.checked = true; // Check the checkbox
+        domCheckbox.disabled = true; // Disable the checkbox
 
         checkFavorite(taniId.replace("tani_","")).then(isDBFavorite => {
             addToSelected(taniId, taniName, taniCode, isDBFavorite);
@@ -45,19 +45,32 @@ function addSelectedTanilar() {
 
 function addToSelected(id, name, code, isDBFavorite) {
     const taniItem = document.createElement('div');
-    taniItem.dataset.id = id; // Store the ID in a data attribute
-    if (isDBFavorite) {
-        taniItem.innerHTML = `
-            ${code} - ${name} 
-            <span class="favoriteTani" onclick="toggleFavorite(${id}, this)">[★]</span>
-            <span class="removeTani" onclick="removeTani(this)">[Sil]</span>`;
-    } else {
-        taniItem.innerHTML = `
-            ${code} - ${name} 
-            <span class="favoriteTani" onclick="toggleFavorite(${id}, this)">[☆]</span>
-            <span class="removeTani" onclick="removeTani(this)">[Sil]</span>`;
+    taniItem.dataset.id = id;
+
+    // Yıldızı isDBFavorite durumuna göre belirleyelim
+    const star = isDBFavorite ? '[★]' : '[☆]';
+
+    taniItem.innerHTML = `
+        ${code} - ${name} 
+        <span class="favoriteTani" onclick="toggleFavorite(${id}, this)">${star}</span>
+        <span class="removeTani" onclick="removeTani(this)">[Sil]</span>`;
+
+    const selectedList = document.getElementById('selectedList');
+    let added = false;
+
+    // Tanıyı doğru sıraya göre ekle
+    for (let child of selectedList.children) {
+        if (child.dataset.id > id) {
+            selectedList.insertBefore(taniItem, child);
+            added = true;
+            break;
+        }
     }
-    document.getElementById('selectedList').appendChild(taniItem);
+
+    // Eğer uygun yer bulunmazsa, sonuna ekle
+    if (!added) {
+        selectedList.appendChild(taniItem);
+    }
 }
 
 function toggleFavorite(taniId, element) {
@@ -91,11 +104,10 @@ function removeTani(element) {
     const item = element.parentElement;
     const taniId = item.dataset.id; // Retrieve the ID from the data attribute
     const selected = JSON.parse(sessionStorage.getItem('selected'));
-
-    selected.find((x, index) => {
-        if(x.id === taniId){
-            selected.splice(index, 1); // Remove the item from the selected array
-    }});  // Remove the item from the selected array
+    const index = selected.findIndex(x => x.id === taniId); // Find the index of the item in the selected array
+    if(index !== -1){
+        selected.splice(index, 1); // Remove the item from the selected array
+    }  // Remove the item from the selected array
 
     // Remove item from the selected list
     item.remove();
