@@ -8,17 +8,30 @@ const allCheckboxes = {}; // Object to keep track of all checkboxes
 let cachedSearch = sessionStorage.getItem('searchQuery');
 const searchBar = document.getElementById('search-bar');
 
+// Sayfa yüklendiğinde sessionStorage'dan isFavorites değerini al ve input'a ayarla
+window.onload = function() {
+    const isFavoritesValue = sessionStorage.getItem('isFavorites');
+    if (isFavoritesValue !== null) {
+        document.getElementById('isFavorites').value = isFavoritesValue;
+    }
+};
+
 function showAll() {
     searchBar.value = '';
     sessionStorage.removeItem('searchQuery');
-    fetchMoreTanilar(true, false);
-    window.location.href = '/Tani/Index';
+    setIsFavorites('false');
 }
 
 function showFavorites() {
     searchBar.value = '';
     sessionStorage.removeItem('searchQuery');
-    fetchMoreTanilar(true, true);
+    setIsFavorites('true');
+}
+
+function setIsFavorites(value) {
+    document.getElementById('isFavorites').value = value;
+    document.getElementById('search-form').submit(); // Submit the form to get the new tanilar
+    sessionStorage.setItem('isFavorites', value);
 }
 
 function addSelectedTanilar() {
@@ -158,7 +171,12 @@ function restoreCheckboxState() {
 // Infinite scrolling functionality
 document.querySelector('.tanilar-container').addEventListener('scroll', function() {
     if (this.scrollTop + this.clientHeight >= this.scrollHeight) {
-        fetchMoreTanilar();
+        if (document.getElementById('isFavorites').value === 'true') {
+            fetchMoreTanilar(false, true);
+        }
+        else {
+            fetchMoreTanilar(false, false);
+        }
     }
 });
 

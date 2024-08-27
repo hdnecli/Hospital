@@ -24,22 +24,19 @@ namespace TaniProjesi.Controllers
             if (!String.IsNullOrEmpty(search))
             {
                 tanilar = tanilar.Where(s => s.Tani_kodu.Contains(search) || s.Tani_adi.Contains(search));
-                var paginatedTanilarSearched = tanilar.ToList();
-                return View(paginatedTanilarSearched);
             }
 
-            var paginatedTanilar = tanilar.Skip((page - 1) * pageSize).Take(pageSize).ToList();
-
-            if (isFavorites == true)
+            if (isFavorites)
             {
                 var userIdString = User.FindFirstValue(ClaimTypes.NameIdentifier);
                 if (int.TryParse(userIdString, out int userId))
                 {
                     var favoriler = _context.Favori.Where(f => f.Kullanici_kodu == userId).Select(f => f.Tani_ID).ToList();
-                    paginatedTanilar = paginatedTanilar.Where(t => favoriler.Contains(t.ID) && (String.IsNullOrEmpty(search) || t.Tani_adi.ToLower().Contains(search.ToLower()) || t.Tani_kodu.Contains(search))).ToList();
+                    tanilar = tanilar.Where(t => favoriler.Contains(t.ID));
                 }
             }
 
+            var paginatedTanilar = tanilar.Skip((page - 1) * pageSize).Take(pageSize).ToList();
             return View(paginatedTanilar);
         }
 
