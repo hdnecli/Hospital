@@ -38,8 +38,8 @@ public class KullaniciController : Controller
 
             await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity));
             
-            ViewData["Title"] = "Tanı Girişi";
-            return RedirectToAction("Index", "Tani");
+            ViewData["Title"] = "Hasta İşlemleri";
+            return RedirectToAction("Index", "HastaIslemleri");
         }
 
         // Hatalı giriş

@@ -1,3 +1,29 @@
 @{
     ViewData["Title"] = "Hasta İşlemleri";
 }
+@model IEnumerable<HastaneNamespace.Models.Hastalar>
+
+<form method="get" action="/Tani/Index" class="search-form" id="search-form">
+    <input type="text" name="search" placeholder="Ad, Soyad, Hasta No ile hasta arayınız." id = "search-bar">
+    <button type="submit">Ara</button>
+</form>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Hasta No</th>
+            <th>Adı</th>
+            <th>Anne Adı</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var hasta in Model)
+        {
+            <tr>
+                <td>@hasta.HastaNo</td>
+                <td>@hasta.Adi</td>
+                <td>@hasta.AnneAdi</td>
+            </tr>
+        }
+    </tbody>
+</table>

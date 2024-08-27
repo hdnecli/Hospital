@@ -16,6 +16,7 @@ public class HastaIslemleriController : Controller {
 
     public IActionResult Index (string search ){
         
-        return View();
+        var hastalar = _context.Hastalar.ToList();
+        return View(hastalar);
     }
 }
