@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "ufMq11dtdNpjJ+ioouNY//E6RTvkk5ykgJt71yYg4fI=",
+  "Hash": "y+f7h8ZDSfX0KtI5D1fo8fP3/2QqNFP3Ro1nLLxrEe8=",
   "Source": "TaniProjesi",
   "BasePath": "_content/TaniProjesi",
   "Mode": "Default",
@@ -93,6 +93,25 @@
       "OriginalItemSpec": "wwwroot/favicon.ico"
     },
     {
+      "Identity": "/home/hamdi/Desktop/Acibadem/TaniProjesi/wwwroot/js/hastalar.js",
+      "SourceId": "TaniProjesi",
+      "SourceType": "Discovered",
+      "ContentRoot": "/home/hamdi/Desktop/Acibadem/TaniProjesi/wwwroot/",
+      "BasePath": "_content/TaniProjesi",
+      "RelativePath": "js/hastalar.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot/js/hastalar.js"
+    },
+    {
       "Identity": "/home/hamdi/Desktop/Acibadem/TaniProjesi/wwwroot/js/site.js",
       "SourceId": "TaniProjesi",
       "SourceType": "Discovered",
@@ -110,6 +129,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot/js/site.js"
+    },
+    {
+      "Identity": "/home/hamdi/Desktop/Acibadem/TaniProjesi/wwwroot/js/tanilar.js",
+      "SourceId": "TaniProjesi",
+      "SourceType": "Discovered",
+      "ContentRoot": "/home/hamdi/Desktop/Acibadem/TaniProjesi/wwwroot/",
+      "BasePath": "_content/TaniProjesi",
+      "RelativePath": "js/tanilar.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot/js/tanilar.js"
     },
     {
       "Identity": "/home/hamdi/Desktop/Acibadem/TaniProjesi/wwwroot/lib/bootstrap/dist/css/bootstrap-grid.css",

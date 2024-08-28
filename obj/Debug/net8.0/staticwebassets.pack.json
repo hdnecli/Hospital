@@ -13,8 +13,16 @@
       "PackagePath": "staticwebassets/favicon.ico"
     },
     {
+      "Id": "/home/hamdi/Desktop/Acibadem/TaniProjesi/wwwroot/js/hastalar.js",
+      "PackagePath": "staticwebassets/js/hastalar.js"
+    },
+    {
       "Id": "/home/hamdi/Desktop/Acibadem/TaniProjesi/wwwroot/js/site.js",
       "PackagePath": "staticwebassets/js/site.js"
+    },
+    {
+      "Id": "/home/hamdi/Desktop/Acibadem/TaniProjesi/wwwroot/js/tanilar.js",
+      "PackagePath": "staticwebassets/js/tanilar.js"
     },
     {
       "Id": "/home/hamdi/Desktop/Acibadem/TaniProjesi/wwwroot/lib/bootstrap/LICENSE",

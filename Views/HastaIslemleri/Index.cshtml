@@ -3,27 +3,35 @@
 }
 @model IEnumerable<HastaneNamespace.Models.Hastalar>
 
-<form method="get" action="/Tani/Index" class="search-form" id="search-form">
-    <input type="text" name="search" placeholder="Ad, Soyad, Hasta No ile hasta arayınız." id = "search-bar">
+<form method="get" action="/HastaIslemleri/Index" class="search-form" id="search-form">
+    <input type="text" name="search" placeholder="Ad, Soyad, Hasta No ile hasta arayınız." id="search-bar">
     <button type="submit">Ara</button>
 </form>
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>Hasta No</th>
-            <th>Adı</th>
-            <th>Anne Adı</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var hasta in Model)
-        {
+<div id = "infinite-table">
+    <table>
+        <thead>
             <tr>
-                <td>@hasta.HastaNo</td>
-                <td>@hasta.Adi</td>
-                <td>@hasta.AnneAdi</td>
+                <th>Hasta No</th>
+                <th>Adı</th>
+                <th>Soyadı</th>
+                <th>Anne Adı</th>
             </tr>
-        }
-    </tbody>
-</table>
+        </thead>
+        <tbody id="hastalar">
+            @foreach (var hasta in Model)
+            {
+                <tr>
+                    <td>@hasta.HastaNo</td>
+                    <td>@hasta.Adi</td>
+                    <td>@hasta.Soyadi</td>
+                    <td>@hasta.AnneAdi</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+@section Scripts {
+    <script src="~/js/hastalar.js" defer></script>
+}
