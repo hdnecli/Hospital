@@ -16,6 +16,7 @@
                 <th>Adı</th>
                 <th>Soyadı</th>
                 <th>Anne Adı</th>
+                <th>Yapılacak İşlemler</th>
             </tr>
         </thead>
         <tbody id="hastalar">
@@ -26,6 +27,17 @@
                     <td>@hasta.Adi</td>
                     <td>@hasta.Soyadi</td>
                     <td>@hasta.AnneAdi</td>
+                    <td>
+                        <button class="action-btn" data-hasta-id="@hasta.HastaNo">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </button>
+                        <div class="action-panel">
+                            <button class="tanı-ekle" data-hasta-id="@hasta.HastaNo">Tanı Ekle</button>
+                            <button class="recete-yaz" data-hasta-id="@hasta.HastaNo">Reçete Yaz</button>
+                        </div>
+                    </td>
                 </tr>
             }
         </tbody>

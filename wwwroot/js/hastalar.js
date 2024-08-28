@@ -29,3 +29,37 @@ document.addEventListener('DOMContentLoaded', function(){
         sessionStorage.setItem('searchQueryHasta', searchBar.value);
     });
 });
+
+document.querySelectorAll('.action-btn').forEach(button => {
+    button.addEventListener('click', function(event) {
+        const panel = this.nextElementSibling;
+        // Diğer panelleri kapat
+        document.querySelectorAll('.action-panel').forEach(p => {
+            if (p !== panel) p.style.display = 'none';
+        });
+        // Paneli aç veya kapat
+        panel.style.display = panel.style.display === 'block' ? 'none' : 'block';
+    });
+});
+
+// Panel dışında bir yere tıklanınca panelin kapanmasını sağla
+window.addEventListener('click', function(event) {
+    if (!event.target.matches('.action-btn')) {
+        document.querySelectorAll('.action-panel').forEach(panel => {
+            panel.style.display = 'none';
+        });
+    }
+});
+
+// Tanı Ekle butonuna tıklama olayı
+document.querySelectorAll('.tanı-ekle').forEach(function(button) {
+    button.addEventListener('click', function() {
+        const hastaID = this.getAttribute('data-hasta-id');
+        const page = 1; 
+        const isFavorite = false; 
+
+        const url = `/Tani/Index?page=${page}&isFavorites=${isFavorite}&hastaID=${hastaID}`;
+        
+        window.location.href = url;
+    });
+});

@@ -107,3 +107,41 @@ thead tr th {
 tr:nth-child(even) {
   background-color: #f2f2f2;
 }
+
+.action-btn {
+  position: relative;
+  width: 30px;
+  height: 30px;
+  background-color: skyblue; /* Butonun rengi */
+  border: none;
+  border-radius: 50%; /* Yuvarlak şekil */
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.action-btn span {
+  background-color: #fff; /* Çizgilerin rengi */
+  width: 18px;
+  height: 2px;
+  margin: 2px 0;
+  display: block;
+}
+
+.action-panel {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.action-panel button {
+  display: block;
+  width: 100%;
+  margin-bottom: 5px;
+}
