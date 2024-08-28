@@ -51,15 +51,21 @@ window.addEventListener('click', function(event) {
     }
 });
 
-// Tanı Ekle butonuna tıklama olayı
 document.querySelectorAll('.tanı-ekle').forEach(function(button) {
     button.addEventListener('click', function() {
         const hastaID = this.getAttribute('data-hasta-id');
         const page = 1; 
         const isFavorite = false; 
-
         const url = `/Tani/Index?page=${page}&isFavorites=${isFavorite}&hastaID=${hastaID}`;
-        
+     
+        window.location.href = url;
+    });
+});
+
+document.querySelectorAll('.recete-yaz').forEach(function(button) {
+    button.addEventListener('click', function(){
+        const hastaID = this.getAttribute('data-hasta-id');
+        const url = `/Recete/Index?hastaID=${hastaID}`;
         window.location.href = url;
     });
 });

@@ -9,5 +9,4 @@ public class Favori
     //public virtual Tani? Tani { get; set; }
     //public virtual Kullanici? Kullanici { get; set; }
 }
-
 }
