@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using HastaneNamespace.Data;
-using HastaneNamespace.Models;
+using TaniProjesi.Data;
+using TaniProjesi.Models;
 using System.Security.Claims;
 
 namespace TaniProjesi.Controllers;

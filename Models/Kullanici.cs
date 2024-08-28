@@ -1,4 +1,4 @@
-namespace HastaneNamespace.Models
+namespace TaniProjesi.Models
 {
     public class Kullanici
     {

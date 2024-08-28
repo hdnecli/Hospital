@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authentication.Cookies;
 
-using HastaneNamespace.Data;
+using TaniProjesi.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 

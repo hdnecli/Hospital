@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
-using HastaneNamespace.Models;
+using TaniProjesi.Models;
 
-namespace HastaneNamespace.Data // YourProjectNamespace kısmını projenizin namespace'i ile değiştirin
+namespace TaniProjesi.Data // YourProjectNamespace kısmını projenizin namespace'i ile değiştirin
 {
     public class ApplicationDbContext : DbContext
     {

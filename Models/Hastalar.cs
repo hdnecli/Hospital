@@ -1,7 +1,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace HastaneNamespace.Models
+namespace TaniProjesi.Models
 {
     public class Hastalar
     {

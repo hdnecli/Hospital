@@ -1,4 +1,4 @@
-using HastaneNamespace.Data;
+using TaniProjesi.Data;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
