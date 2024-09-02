@@ -7,7 +7,8 @@ document.addEventListener('DOMContentLoaded', function() {
     const previousPath = sessionStorage.getItem('previousPath');
 
     if ((previousPath && previousPath.startsWith('/Tani') && !currentPath.startsWith('/Tani')) ||
-        (previousPath && previousPath.startsWith('/HastaIslemleri') && !currentPath.startsWith('/HastaIslemleri'))) {
+        (previousPath && previousPath.startsWith('/HastaIslemleri') && !currentPath.startsWith('/HastaIslemleri')) &&
+        (!currentPath.startsWith('/Recete'))) {
         sessionStorage.clear();
     }
 
@@ -19,7 +20,8 @@ window.addEventListener('popstate', function() {
     const previousPath = sessionStorage.getItem('previousPath');
 
     if ((previousPath && previousPath.startsWith('/Tani') && !currentPath.startsWith('/Tani')) ||
-        (previousPath && previousPath.startsWith('/HastaIslemleri') && !currentPath.startsWith('/HastaIslemleri'))) {
+        (previousPath && previousPath.startsWith('/HastaIslemleri') && !currentPath.startsWith('/HastaIslemleri')) &&
+        (!currentPath.startsWith('/Recete'))) {
         sessionStorage.clear();
     }
 

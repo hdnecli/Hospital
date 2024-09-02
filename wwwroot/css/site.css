@@ -65,12 +65,12 @@ body {
 }
 
 .scrollable {
-  overflow-y: auto; /* Normalde scroll edilebilir yap */
-  max-height: 300px; /* İhtiyacınıza göre yükseklik belirleyin */
+  overflow-y: auto; 
+  max-height: 300px; 
 }
 
 .no-scroll {
-  overflow-y: hidden; /* Scroll'u engelle */
+  overflow-y: hidden; 
 }
 
 #infinite-table {
@@ -106,9 +106,9 @@ tr:nth-child(even) {
   position: relative;
   width: 30px;
   height: 30px;
-  background-color: skyblue; /* Butonun rengi */
+  background-color: skyblue; 
   border: none;
-  border-radius: 50%; /* Yuvarlak şekil */
+  border-radius: 50%; 
   cursor: pointer;
   display: flex;
   justify-content: center;
@@ -117,7 +117,7 @@ tr:nth-child(even) {
 }
 
 .action-btn span {
-  background-color: #fff; /* Çizgilerin rengi */
+  background-color: #fff; 
   width: 18px;
   height: 2px;
   margin: 2px 0;
@@ -140,7 +140,6 @@ tr:nth-child(even) {
   margin-bottom: 5px;
 }
 
-/* Yeni Eklenen CSS Kuralları */
 .container {
   margin-top: 20px;
   padding: 15px;
