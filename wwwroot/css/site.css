@@ -1,5 +1,7 @@
 html {
   font-size: 14px;
+  position: relative;
+  min-height: 100%;
 }
 
 @media (min-width: 768px) {
@@ -8,21 +10,13 @@ html {
   }
 }
 
-.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
-}
-
-html {
-  position: relative;
-  min-height: 100%;
-}
-
 body {
   margin-bottom: 60px;
+  font-family: Arial, sans-serif;
 }
 
-body {
-  font-family: Arial, sans-serif;
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
 }
 
 .button-group {
@@ -144,4 +138,92 @@ tr:nth-child(even) {
   display: block;
   width: 100%;
   margin-bottom: 5px;
+}
+
+/* Yeni Eklenen CSS Kuralları */
+.container {
+  margin-top: 20px;
+  padding: 15px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.form-header h4 {
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.custom-input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+}
+
+.scrollable-box {
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+.char-counter {
+  text-align: right;
+  color: #888;
+  font-size: 12px;
+}
+
+.button-group {
+  margin-top: 20px;
+  text-align: right;
+}
+
+#button-group-tani {
+  text-align: left;
+}
+
+.button-group .btn {
+  margin-left: 10px;
+}
+
+.custom-dropdown {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%; 
+}
+
+.custom-dropdown select {
+  flex-grow: 1; 
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+  text-overflow: ellipsis;
+  overflow: hidden; 
+  white-space: nowrap; 
+}
+
+.btn-group {
+  display: flex;
+  gap: 10px;
+}
+
+.recete-btn, .link-btn {
+  padding: 10px 15px;
+  border: none;
+  background-color: #ddd;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.recete-btn.active {
+  background-color: #258cfb;
+  color: white;
+}
+
+.recete-btn:not(.active):hover, .link-btn:hover {
+  background-color: #bbb;
 }

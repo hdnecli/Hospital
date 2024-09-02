@@ -24,6 +24,18 @@
                         @ViewData["Title"]
                     </a>
                 }
+                else if (ViewData["Title"]?.ToString() == "Hasta İşlemleri")
+                {
+                    <a class="navbar-brand" asp-area="" asp-controller="HastaIslemleri" asp-action="Index">
+                        @ViewData["Title"]
+                    </a>
+                }
+                else if (ViewData["Title"]?.ToString() == "Reçete")
+                {
+                    <a class="navbar-brand" asp-area="" asp-controller="Recete" asp-action="Index">
+                        @ViewData["Title"]
+                    </a>
+                }
                 else {
                     <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
                         @ViewData["Title"]

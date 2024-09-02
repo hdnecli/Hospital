@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "y+f7h8ZDSfX0KtI5D1fo8fP3/2QqNFP3Ro1nLLxrEe8=",
+  "Hash": "AeSIwbv4PZ337GXpc2ECXu6RYLZYPFCTRnP/CMVNCG8=",
   "Source": "TaniProjesi",
   "BasePath": "_content/TaniProjesi",
   "Mode": "Default",
@@ -110,6 +110,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot/js/hastalar.js"
+    },
+    {
+      "Identity": "/home/hamdi/Desktop/Acibadem/TaniProjesi/wwwroot/js/recete.js",
+      "SourceId": "TaniProjesi",
+      "SourceType": "Discovered",
+      "ContentRoot": "/home/hamdi/Desktop/Acibadem/TaniProjesi/wwwroot/",
+      "BasePath": "_content/TaniProjesi",
+      "RelativePath": "js/recete.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot/js/recete.js"
     },
     {
       "Identity": "/home/hamdi/Desktop/Acibadem/TaniProjesi/wwwroot/js/site.js",

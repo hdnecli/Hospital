@@ -17,6 +17,10 @@
       "PackagePath": "staticwebassets/js/hastalar.js"
     },
     {
+      "Id": "/home/hamdi/Desktop/Acibadem/TaniProjesi/wwwroot/js/recete.js",
+      "PackagePath": "staticwebassets/js/recete.js"
+    },
+    {
       "Id": "/home/hamdi/Desktop/Acibadem/TaniProjesi/wwwroot/js/site.js",
       "PackagePath": "staticwebassets/js/site.js"
     },
