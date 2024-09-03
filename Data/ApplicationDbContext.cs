@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using TaniProjesi.Models;
 
-namespace TaniProjesi.Data // YourProjectNamespace kısmını projenizin namespace'i ile değiştirin
+namespace TaniProjesi.Data 
 {
     public class ApplicationDbContext : DbContext
     {
@@ -15,5 +15,9 @@ namespace TaniProjesi.Data // YourProjectNamespace kısmını projenizin namespa
         public DbSet<Kullanici> Kullanici { get; set; }
         public DbSet<Hastalar> Hastalar {get; set; }
         public DbSet<Ilaclar> Ilaclar { get; set; }
+        public DbSet<Doktorlar> Doktorlar { get; set; }
+        public DbSet<Doktor_Servisleri> Doktor_Servisleri { get; set; }
+        public DbSet<Verilis_Yollari> Verilis_Yollari { get; set; }
+
     }
 }

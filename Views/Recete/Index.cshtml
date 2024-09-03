@@ -13,7 +13,7 @@
                 <input type="date" id="tarih" class="custom-input" placeholder="Tarih Seçin">
             </div>
             <div class="form-group">
-                <label for="recete-turu">Reçete Türü</label>
+                <label for="receteTurBtnGroup">Reçete Türü</label>
                 <div class="btn-group" id="receteTurBtnGroup">
                     <button type="button" class="recete-btn" data-type="normal">Normal</button>
                     <button type="button" class="link-btn" onclick="openLink()">Renkli Reçete</button>
@@ -37,6 +37,14 @@
                 <div>
                     <button type = "button" class ="link-btn" onclick = "openTani()">Tanı Ekle</button>
                 </div>
+            </div>
+            <div class = "form-group">
+                <div>
+                    <label for="tani-screen">Tanı Seç</label>
+                        <div id="selectedList">
+                        </div>
+                </div>
+
             </div>
             <div class="form-group">
                 <label for="ilac-aciklama">Reçete Notu</label>
