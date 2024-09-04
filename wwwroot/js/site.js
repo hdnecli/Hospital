@@ -6,9 +6,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const currentPath = window.location.pathname;
     const previousPath = sessionStorage.getItem('previousPath');
 
-    if ((previousPath && previousPath.startsWith('/Tani') && !currentPath.startsWith('/Tani')) ||
-        (previousPath && previousPath.startsWith('/HastaIslemleri') && !currentPath.startsWith('/HastaIslemleri')) &&
-        (!currentPath.startsWith('/Recete'))) {
+    if (previousPath && previousPath !== currentPath && !currentPath.startsWith('/Recete')) {
         sessionStorage.clear();
     }
 
@@ -19,9 +17,7 @@ window.addEventListener('popstate', function() {
     const currentPath = window.location.pathname;
     const previousPath = sessionStorage.getItem('previousPath');
 
-    if ((previousPath && previousPath.startsWith('/Tani') && !currentPath.startsWith('/Tani')) ||
-        (previousPath && previousPath.startsWith('/HastaIslemleri') && !currentPath.startsWith('/HastaIslemleri')) &&
-        (!currentPath.startsWith('/Recete'))) {
+    if (previousPath && previousPath !== currentPath && !currentPath.startsWith('/Recete')) {
         sessionStorage.clear();
     }
 

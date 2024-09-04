@@ -30,6 +30,13 @@ function setIsFavorites(value) {
     sessionStorage.setItem('isFavorites', value);
 }
 
+function moveToRecete() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const hastaID = urlParams.get('hastaID');
+    const url = `/Recete/Index?hastaID=${hastaID}`;
+    window.location.href = url;
+}
+
 function addSelectedTanilar() {
     const selectedCheckboxesElements = JSON.parse(sessionStorage.getItem('selected'));
     selectedCheckboxesElements.forEach(checkbox => {
