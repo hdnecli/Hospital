@@ -1,3 +1,5 @@
+@model ReceteViewModel
+
 @{
     ViewData["Title"] = "Reçete";
 }
@@ -5,9 +7,10 @@
 <div class="container mt-5">
     <div class="form-container">
         <div class="form-header">
-            <h4>Reçete</h4>
+            <h4>Reçete - Hasta No: @Model.Hasta.HastaNo</h4>
         </div>
         <form method="post" asp-action="Kaydet">
+            <input type="hidden" name="hastaNo" value="@Model.Hasta.HastaNo">
             <div class="form-group">
                 <label for="tarih">Tarih</label>
                 <input type="date" id="tarih" class="custom-input" placeholder="Tarih Seçin">
@@ -33,20 +36,35 @@
                     </select>
                 </div>
             </div>
-            <div class = "form-group">
+            <div class="form-group">
                 <div>
-                    <button type = "button" class ="link-btn" onclick = "openTani()">Tanı Ekle</button>
+                    <button type="button" class="link-btn" onclick="openTani()">Tanı Ekle</button>
                 </div>
             </div>
-            <div class = "form-group">
+            <div class="form-group">
                 <div>
                     <label for="tani-screen">Tanı Seç</label>
-                        <div id="selectedList">
-                            
-                        </div>
+                    <div id="selectedList">
+                        
+                    </div>
                 </div>
-
             </div>
+            <div class="form-group">
+                <div>
+                    <label for="ilac-screen">İlaç Ekle</label>
+                    <div ihastaNod="ilac-screen">
+                        <div class="search-form" id="search-form">
+                            <input type="text" name="search" placeholder="İlaç Adı veya Barkod" id="search-bar">
+                            <button type="button" id="search-button">Ara</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="ilac-list" class="ilac-list">
+                <!-- Arama sonuçları buraya eklenecek -->
+            </div>
+            
             <div class="form-group">
                 <label for="ilac-aciklama">Reçete Notu</label>
                 <textarea class="form-control custom-input scrollable-box" id="ilac-aciklama" name="IlacAciklama" rows="5" maxlength="3000"></textarea>

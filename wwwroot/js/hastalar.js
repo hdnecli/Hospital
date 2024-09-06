@@ -53,10 +53,10 @@ window.addEventListener('click', function(event) {
 
 document.querySelectorAll('.tanı-ekle').forEach(function(button) {
     button.addEventListener('click', function() {
-        const hastaID = this.getAttribute('data-hasta-id');
+        const hastaNo = this.getAttribute('data-hasta-id');
         const page = 1; 
         const isFavorite = false; 
-        const url = `/Tani/Index?page=${page}&isFavorites=${isFavorite}&hastaID=${hastaID}`;
+        const url = `/Tani/Index?page=${page}&isFavorites=${isFavorite}&hastaNo=${hastaNo}`;
      
         window.location.href = url;
     });
@@ -64,8 +64,8 @@ document.querySelectorAll('.tanı-ekle').forEach(function(button) {
 
 document.querySelectorAll('.recete-yaz').forEach(function(button) {
     button.addEventListener('click', function(){
-        const hastaID = this.getAttribute('data-hasta-id');
-        const url = `/Recete/Index?hastaID=${hastaID}`;
+        const hastaNo = this.getAttribute('data-hasta-id');
+        const url = `/Recete/Index?hastaNo=${hastaNo}`; 
         window.location.href = url;
     });
 });

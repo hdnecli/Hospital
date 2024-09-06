@@ -32,8 +32,8 @@ function setIsFavorites(value) {
 
 function moveToRecete() {
     const urlParams = new URLSearchParams(window.location.search);
-    const hastaID = urlParams.get('hastaID');
-    const url = `/Recete/Index?hastaID=${hastaID}`;
+    const hastaNo = urlParams.get('hastaNo');
+    const url = `/Recete/Index?hastaNo=${hastaNo}`;
     window.location.href = url;
 }
 

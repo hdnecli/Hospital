@@ -226,3 +226,19 @@ tr:nth-child(even) {
 .recete-btn:not(.active):hover, .link-btn:hover {
   background-color: #bbb;
 }
+
+.ilac-list {
+  margin-top: 10px;
+}
+
+.ilac-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 5px 0;
+  border-bottom: 1px solid #eee;
+}
+
+.ilac-item:last-child {
+  border-bottom: none;
+}
