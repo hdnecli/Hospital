@@ -243,7 +243,12 @@ tr:nth-child(even) {
   border-bottom: none;
 }
 
+.kutu-input, .doz-input {
+  width: 50px;
+  text-align: center;
+}
+
 .kutu-input {
-    width: 50px;
-    text-align: center;
+  width: 50px;
+  text-align: center;
 }

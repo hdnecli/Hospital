@@ -66,20 +66,24 @@ function araIlac() {
                 row.innerHTML = `
                     <td>${ilac.ilac_adi}</td>
                     <td><input type="number" class="kutu-input" min="1" max="10" value="1" data-ilac-id="${ilac.id}"></td>
-                    <td>${ilac.doz}</td>
+                    <td>
+                        <input type="number" class="doz-input" min="1" max="10" value="1" data-ilac-id="${ilac.id}">
+                        X
+                        <input type="number" class="doz-input" min="1" max="10" value="1" data-ilac-id="${ilac.id}">
+                    </td>
                     <td>${ilac.verilis_yolu}</td>
                     <td><button type="button" class="btn btn-primary btn-sm" onclick="ilacEkle(${ilac.id}, '${ilac.ilac_adi}')">Ekle</button></td>
                     <td><button type="button" class="btn btn-danger btn-sm" onclick="ilacSil(${ilac.id})">Sil</button></td>
                 `;
                 ilacListesiBody.appendChild(row);
             });
-            addKutuInputListeners();
+            addInputListeners();
         })
         .catch(error => console.error('Error:', error));
 }
 
-function addKutuInputListeners() {
-    document.querySelectorAll('.kutu-input').forEach(input => {
+function addInputListeners() {
+    document.querySelectorAll('.kutu-input, .doz-input').forEach(input => {
         input.addEventListener('input', function() {
             let value = parseInt(this.value);
             if (isNaN(value) || value < 1) {
@@ -115,8 +119,12 @@ function addToSelected(id, name, code) {
 
 function ilacEkle(ilacId, ilacAdi) {
     const kutuInput = document.querySelector(`.kutu-input[data-ilac-id="${ilacId}"]`);
+    const dozInputs = document.querySelectorAll(`.doz-input[data-ilac-id="${ilacId}"]`);
     const kutuMiktari = kutuInput ? kutuInput.value : 1;
-    console.log(`İlaç eklendi: ${ilacAdi}, Kutu: ${kutuMiktari}`);
+    const doz1 = dozInputs[0] ? dozInputs[0].value : 1;
+    const doz2 = dozInputs[1] ? dozInputs[1].value : 1;
+    console.log(`İlaç eklendi: ${ilacAdi}, Kutu: ${kutuMiktari}, Doz: ${doz1} X ${doz2}`);
+    // İlaç ekleme işlemini burada gerçekleştirin
 }
 
 function ilacSil(ilacId) {
