@@ -52,7 +52,7 @@
             <div class="form-group">
                 <div>
                     <label for="ilac-screen">İlaç Ekle</label>
-                    <div ihastaNod="ilac-screen">
+                    <div id="ilac-screen">
                         <div class="search-form" id="search-form">
                             <input type="text" name="search" placeholder="İlaç Adı veya Barkod" id="search-bar">
                             <button type="button" id="search-button">Ara</button>
@@ -62,7 +62,21 @@
             </div>
             
             <div id="ilac-list" class="ilac-list">
-                <!-- Arama sonuçları buraya eklenecek -->
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>İlaç Adı</th>
+                            <th>Kutu</th>
+                            <th>Doz</th>
+                            <th>Veriliş Yolu</th>
+                            <th>Ekle</th>
+                            <th>Sil</th>
+                        </tr>
+                    </thead>
+                    <tbody id="ilac-list-body">
+                        <!-- İlaçlar buraya eklenecek -->
+                    </tbody>
+                </table>
             </div>
             
             <div class="form-group">

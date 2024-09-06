@@ -48,7 +48,13 @@ public class ReceteController : Controller{
         var ilaclar = _context.Ilaclar
             .Where(i => i.Ilac_adi.Contains(search) || i.Barkod.Contains(search))
             .Take(10)
-            .Select(i => new { id = i.ID, ilac_adi = i.Ilac_adi })
+            .Select(i => new {
+                id = i.ID,
+                ilac_adi = i.Ilac_adi,
+                kutu = "", // Bu alanları veritabanınızdan alacak şekilde güncelleyin
+                doz = "",
+                verilis_yolu = ""
+            })
             .ToList();
 
         return Json(ilaclar);

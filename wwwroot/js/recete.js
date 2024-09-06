@@ -59,16 +59,19 @@ function araIlac() {
         .then(response => response.json())
         .then(data => {
             console.log('Gelen veri:', data);
-            var ilacListesi = document.getElementById('ilac-list');
-            ilacListesi.innerHTML = '';
+            var ilacListesiBody = document.getElementById('ilac-list-body');
+            ilacListesiBody.innerHTML = '';
             data.forEach(ilac => {
-                var ilacItem = document.createElement('div');
-                ilacItem.className = 'ilac-item';
-                ilacItem.innerHTML = `
-                    <span>${ilac.ilac_adi}</span>
-                    <button type="button" class="btn btn-primary btn-sm" onclick="ilacEkle(${ilac.id}, '${ilac.ilac_adi}')">Ekle</button>
+                var row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${ilac.ilac_adi}</td>
+                    <td>${ilac.kutu}</td>
+                    <td>${ilac.doz}</td>
+                    <td>${ilac.verilis_yolu}</td>
+                    <td><button type="button" class="btn btn-primary btn-sm" onclick="ilacEkle(${ilac.id}, '${ilac.ilac_adi}')">Ekle</button></td>
+                    <td><button type="button" class="btn btn-danger btn-sm" onclick="ilacSil(${ilac.id})">Sil</button></td>
                 `;
-                ilacListesi.appendChild(ilacItem);
+                ilacListesiBody.appendChild(row);
             });
         })
         .catch(error => console.error('Error:', error));
@@ -97,5 +100,9 @@ function addToSelected(id, name, code) {
 }
 
 function ilacEkle(ilacId, ilacAdi) {
-    console.log("İlaç eklendi: " + ilacId + " - " + ilacAdi);
+    console.log("İlaç eklendi: " + ilacAdi);
+}
+
+function ilacSil(ilacId) {
+    console.log("İlaç silindi: " + ilacId);
 }
