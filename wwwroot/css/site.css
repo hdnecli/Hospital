@@ -242,3 +242,8 @@ tr:nth-child(even) {
 .ilac-item:last-child {
   border-bottom: none;
 }
+
+.kutu-input {
+    width: 50px;
+    text-align: center;
+}

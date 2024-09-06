@@ -33,7 +33,7 @@ public class ReceteController : Controller{
         {
             var ilaclar = _context.Ilaclar
                 .Where(i => i.Ilac_adi.Contains(search) || i.Barkod.Contains(search))
-                .Take(10)  // Sonuç sayısını sınırlandırabilirsiniz
+                .Take(10)  
                 .ToList();
 
             model.Ilaclar = ilaclar;
@@ -51,7 +51,7 @@ public class ReceteController : Controller{
             .Select(i => new {
                 id = i.ID,
                 ilac_adi = i.Ilac_adi,
-                kutu = "", // Bu alanları veritabanınızdan alacak şekilde güncelleyin
+                kutu = "", 
                 doz = "",
                 verilis_yolu = ""
             })

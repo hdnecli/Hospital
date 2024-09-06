@@ -65,7 +65,7 @@ function araIlac() {
                 var row = document.createElement('tr');
                 row.innerHTML = `
                     <td>${ilac.ilac_adi}</td>
-                    <td>${ilac.kutu}</td>
+                    <td><input type="number" class="kutu-input" min="1" max="10" value="1" data-ilac-id="${ilac.id}"></td>
                     <td>${ilac.doz}</td>
                     <td>${ilac.verilis_yolu}</td>
                     <td><button type="button" class="btn btn-primary btn-sm" onclick="ilacEkle(${ilac.id}, '${ilac.ilac_adi}')">Ekle</button></td>
@@ -73,8 +73,22 @@ function araIlac() {
                 `;
                 ilacListesiBody.appendChild(row);
             });
+            addKutuInputListeners();
         })
         .catch(error => console.error('Error:', error));
+}
+
+function addKutuInputListeners() {
+    document.querySelectorAll('.kutu-input').forEach(input => {
+        input.addEventListener('input', function() {
+            let value = parseInt(this.value);
+            if (isNaN(value) || value < 1) {
+                this.value = 1;
+            } else if (value > 10) {
+                this.value = 10;
+            }
+        });
+    });
 }
 
 function addToSelected(id, name, code) {
@@ -100,7 +114,9 @@ function addToSelected(id, name, code) {
 }
 
 function ilacEkle(ilacId, ilacAdi) {
-    console.log("İlaç eklendi: " + ilacAdi);
+    const kutuInput = document.querySelector(`.kutu-input[data-ilac-id="${ilacId}"]`);
+    const kutuMiktari = kutuInput ? kutuInput.value : 1;
+    console.log(`İlaç eklendi: ${ilacAdi}, Kutu: ${kutuMiktari}`);
 }
 
 function ilacSil(ilacId) {
