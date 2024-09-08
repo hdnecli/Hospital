@@ -61,7 +61,7 @@ function araIlac() {
             console.log('Gelen veri:', data);
             var ilacListesiBody = document.getElementById('ilac-list-body');
             ilacListesiBody.innerHTML = '';
-            data.forEach(ilac => {
+            data.ilaclar.forEach(ilac => {
                 var row = document.createElement('tr');
                 row.innerHTML = `
                     <td>${ilac.ilac_adi}</td>
@@ -71,7 +71,17 @@ function araIlac() {
                         X
                         <input type="number" class="doz-input" min="1" max="10" value="1" data-ilac-id="${ilac.id}">
                     </td>
-                    <td>${ilac.verilis_yolu}</td>
+                    <td>
+                        <select class="verilis-yolu-select" data-ilac-id="${ilac.id}">
+                            ${data.verilisYollari.map(yol => `<option value="${yol.id}">${yol.adi}</option>`).join('')}
+                        </select>
+                    </td>
+                    <td>
+                        <input type="number" class="periyot-input" min="1" max="10" value="1" data-ilac-id="${ilac.id}">
+                        <select class="periyot-birim-select" data-ilac-id="${ilac.id}">
+                            ${data.periyotBirimleri.map(birim => `<option value="${birim.id}">${birim.adi}</option>`).join('')}
+                        </select>
+                    </td>
                     <td><button type="button" class="btn btn-primary btn-sm" onclick="ilacEkle(${ilac.id}, '${ilac.ilac_adi}')">Ekle</button></td>
                     <td><button type="button" class="btn btn-danger btn-sm" onclick="ilacSil(${ilac.id})">Sil</button></td>
                 `;
@@ -120,11 +130,12 @@ function addToSelected(id, name, code) {
 function ilacEkle(ilacId, ilacAdi) {
     const kutuInput = document.querySelector(`.kutu-input[data-ilac-id="${ilacId}"]`);
     const dozInputs = document.querySelectorAll(`.doz-input[data-ilac-id="${ilacId}"]`);
+    const verilisYoluSelect = document.querySelector(`.verilis-yolu-select[data-ilac-id="${ilacId}"]`);
     const kutuMiktari = kutuInput ? kutuInput.value : 1;
     const doz1 = dozInputs[0] ? dozInputs[0].value : 1;
     const doz2 = dozInputs[1] ? dozInputs[1].value : 1;
-    console.log(`İlaç eklendi: ${ilacAdi}, Kutu: ${kutuMiktari}, Doz: ${doz1} X ${doz2}`);
-    // İlaç ekleme işlemini burada gerçekleştirin
+    const verilisYolu = verilisYoluSelect ? verilisYoluSelect.options[verilisYoluSelect.selectedIndex].text : '';
+    console.log(`İlaç eklendi: ID: ${ilacId}, İlaç: ${ilacAdi}, Kutu: ${kutuMiktari}, Doz: ${doz1} X ${doz2}, Veriliş Yolu: ${verilisYolu}`);
 }
 
 function ilacSil(ilacId) {

@@ -243,12 +243,18 @@ tr:nth-child(even) {
   border-bottom: none;
 }
 
-.kutu-input, .doz-input {
-  width: 50px;
-  text-align: center;
+.kutu-input, .doz-input, .periyot-input {
+    width: 100%;
+    max-width: 40px;
+    text-align: center;
 }
 
-.kutu-input {
-  width: 50px;
-  text-align: center;
+.verilis-yolu-select {
+    max-width: 100px;
+    display: inline-block;
+}
+
+.periyot-birim-select {
+    max-width: 80px;
+    display: inline-block;
 }

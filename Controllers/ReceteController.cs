@@ -46,17 +46,30 @@ public class ReceteController : Controller{
     public IActionResult AraIlac(string search, int hastaNo)
     {
         var ilaclar = _context.Ilaclar
-            .Where(i => i.Ilac_adi.Contains(search) || i.Barkod.Contains(search))
+            .Where(i => i.Ilac_adi.Contains(search) || i.Barkod.Contains(search) && i.Sgk_oder_mi)
             .Take(10)
             .Select(i => new {
                 id = i.ID,
                 ilac_adi = i.Ilac_adi,
                 kutu = "", 
-                doz = "",
-                verilis_yolu = ""
+                doz = ""
             })
             .ToList();
 
-        return Json(ilaclar);
+        var verilisYollari = _context.Verilis_Yollari
+            .Where(v => v.Aktif == "E")
+            .OrderBy(v => v.ID)
+            .Select(v => new { id = v.ID, adi = v.Verilis_Yolu_Adi })
+            .ToList();
+
+        var periyotBirimleri = new List<object>
+        {
+            new { id = 0, adi = "Gün" },
+            new { id = 1, adi = "Hafta" },
+            new { id = 2, adi = "Ay" },
+            new { id = 3, adi = "Yıl" }
+        };
+
+        return Json(new { ilaclar, verilisYollari, periyotBirimleri });
     }
 }
