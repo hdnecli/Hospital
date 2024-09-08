@@ -2,8 +2,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using TaniProjesi.Data;
 using TaniProjesi.Models;
-using System.Security.Claims;
-using System.Collections.Generic;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace TaniProjesi.Controllers;
 
@@ -23,10 +22,20 @@ public class ReceteController : Controller{
             return NotFound();
         }
 
+        var doktorlar = _context.Doktorlar
+            .Where(d => d.Aktif == "T")
+            .Select(d => new SelectListItem
+            {
+                Value = d.ID.ToString(),
+                Text = d.Doktor_Adi + " " + d.Doktor_Soyadi
+            })
+            .ToList();
+
         var model = new ReceteViewModel
         {
             Hasta = hasta,
-            Ilaclar = new List<Ilaclar>()
+            Ilaclar = new List<Ilaclar>(),
+            Doktorlar = doktorlar
         };
 
         if (!string.IsNullOrEmpty(search))

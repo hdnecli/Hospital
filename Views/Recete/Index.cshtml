@@ -85,6 +85,14 @@
                 <textarea class="form-control custom-input scrollable-box" id="ilac-aciklama" name="IlacAciklama" rows="5" maxlength="3000"></textarea>
                 <div class="char-counter" id="char-count">0 / 3000</div>
             </div>
+            <div class="form-group">
+                <label for="onaylayan-doktor">Onaylayan Doktor</label>
+                <select class="form-control custom-input" id="onaylayan-doktor" name="OnaylayanDoktor">
+                    @foreach (var doktor in Model.Doktorlar)
+                    {
+                        <option value="@doktor.Value">@doktor.Text</option>
+                    }
+                </select>
             <div class="form-group button-group">
                 <button type="button" class="btn btn-secondary">Vazgeç</button>
                 <button type="submit" class="btn btn-primary">Kaydet</button>

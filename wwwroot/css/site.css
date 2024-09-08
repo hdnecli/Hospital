@@ -258,3 +258,7 @@ tr:nth-child(even) {
     max-width: 80px;
     display: inline-block;
 }
+
+#onaylayan-doktor {
+    max-width: 300px;
+}
