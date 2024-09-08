@@ -5,6 +5,14 @@ namespace TaniProjesi.Models
     public class ReceteViewModel
     {
         public int HastaNo { get; set; }
+        public required string Adi { get; set; }
+        public required string Soyadi { get; set; }
+        public required string BabaAdi { get; set; }
+        public required string AnneAdi { get; set; }
+        public required DateTime DogumTarihi { get; set; }
+        public required string Telefon { get; set; }
+        public required string Adres { get; set; }
+        public required string Aktif { get; set; } = "1";
         public List<SelectListItem> Doktorlar { get; set; } = new List<SelectListItem>();
         public List<SelectListItem> Doktor_Servisleri { get; set; } = new List<SelectListItem>();
         public int ReceteTuru { get; set; }
@@ -13,16 +21,5 @@ namespace TaniProjesi.Models
         public int OnaylayacakDoktorID { get; set; }
         public int OnaylananServis { get; set; }
         public DateTime Tarih { get; set; } = DateTime.Now;
-        public HastaViewModel HastaBilgileri { get; set; } = new HastaViewModel();
-    }
-
-    public class HastaViewModel
-    {
-        public string Adi { get; set; } = string.Empty;
-        public string Soyadi { get; set; } = string.Empty;
-        public string Adres { get; set; } = string.Empty;
-        public string AnneAdi { get; set; } = string.Empty;
-        public string BabaAdi { get; set; } = string.Empty;
-        public string Telefon { get; set; } = string.Empty;
     }
 }

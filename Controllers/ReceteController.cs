@@ -25,15 +25,15 @@ public class ReceteController : Controller{
         var model = new ReceteViewModel
         {
             HastaNo = hastaNo,
-            HastaBilgileri = new HastaViewModel
-            {
-                Adi = hasta.Adi,
-                Soyadi = hasta.Soyadi,
-                Adres = hasta.Adres,
-                AnneAdi = hasta.AnneAdi,
-                BabaAdi = hasta.BabaAdi,
-                Telefon = hasta.Telefon
-            },
+            Adi = hasta.Adi,
+            Soyadi = hasta.Soyadi,
+            BabaAdi = hasta.BabaAdi,
+            AnneAdi = hasta.AnneAdi,
+            DogumTarihi = hasta.DogumTarihi,
+            Telefon = hasta.Telefon,
+            Adres = hasta.Adres,
+            Aktif = hasta.Aktif,
+
             Doktorlar = _context.Doktorlar
                 .Where(d => d.Aktif == "T")
                 .Select(d => new SelectListItem
