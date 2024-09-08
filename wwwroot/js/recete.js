@@ -5,6 +5,7 @@ document.querySelectorAll('.recete-btn').forEach(button => {
     button.addEventListener('click', function() {
         document.querySelectorAll('.recete-btn').forEach(btn => btn.classList.remove('active'));
         this.classList.add('active');
+        document.getElementById('ReceteTuru').value = this.dataset.type;
     });
 });
 
@@ -65,6 +66,14 @@ document.addEventListener('DOMContentLoaded', function() {
         if (!elektronikOnayCheckbox.checked) {
             event.preventDefault();
             alert('Lütfen elektronik onay kutusunu işaretleyin.');
+        } else {
+            const seciliReceteTuru = document.querySelector('.recete-btn.active');
+            if (seciliReceteTuru) {
+                document.getElementById('ReceteTuru').value = seciliReceteTuru.dataset.type;
+            } else {
+                event.preventDefault();
+                alert('Lütfen bir Reçete Türü seçin.');
+            }
         }
     });
 

@@ -7,29 +7,37 @@
 <div class="container mt-5">
     <div class="form-container">
         <div class="form-header">
-            <h4>Reçete - Hasta No: @Model.Hasta.HastaNo</h4>
+            <h4>Reçete - Hasta No: @Model.HastaNo</h4>
         </div>
         <form method="post" asp-action="Kaydet">
-            <input type="hidden" name="hastaNo" value="@Model.Hasta.HastaNo">
+            <input type="hidden" asp-for="HastaNo" />
+            <input type="hidden" asp-for="HastaBilgileri.Adi" />
+            <input type="hidden" asp-for="HastaBilgileri.Soyadi" />
+            <input type="hidden" asp-for="HastaBilgileri.Adres" />
+            <input type="hidden" asp-for="HastaBilgileri.AnneAdi" />
+            <input type="hidden" asp-for="HastaBilgileri.BabaAdi" />
+            <input type="hidden" asp-for="HastaBilgileri.Telefon" />
+
             <div class="form-group">
                 <label for="tarih">Tarih</label>
-                <input type="date" id="tarih" class="custom-input" placeholder="Tarih Seçin">
+                <input type="date" id="tarih" asp-for="Tarih" class="custom-input" placeholder="Tarih Seçin">
             </div>
             <div class="form-group">
                 <label for="receteTurBtnGroup">Reçete Türü</label>
                 <div class="btn-group" id="receteTurBtnGroup">
-                    <button type="button" class="recete-btn" data-type="normal">Normal</button>
+                    <button type="button" class="recete-btn" data-type="0">Normal</button>
                     <button type="button" class="link-btn" onclick="openLink()">Renkli Reçete</button>
-                    <button type="button" class="recete-btn" data-type="kirmizi">Kırmızı</button>
-                    <button type="button" class="recete-btn" data-type="yesil">Yeşil</button>
-                    <button type="button" class="recete-btn" data-type="mor">Mor</button>
-                    <button type="button" class="recete-btn" data-type="turuncu">Turuncu</button>
+                    <button type="button" class="recete-btn" data-type="1">Kırmızı</button>
+                    <button type="button" class="recete-btn" data-type="2">Yeşil</button>
+                    <button type="button" class="recete-btn" data-type="3">Mor</button>
+                    <button type="button" class="recete-btn" data-type="4">Turuncu</button>
                 </div>
+                <input type="hidden" id="ReceteTuru" asp-for="ReceteTuru" value="0">
             </div>
             <div class="form-group custom-dropdown">
                 <div>
                     <label for="recete">Reçete Ait Türü</label>
-                    <select class="form-control custom-input" id="recete" name="ReceteAitTuru">
+                    <select class="form-control custom-input" id="recete" asp-for="ReceteAitTuru">
                         <option value="0">Ayaktan Reçetesi</option>
                         <option value="1">Yatan Reçetesi</option>
                         <option value="2">Taburcu Reçetesi</option>
@@ -82,13 +90,13 @@
             
             <div class="form-group">
                 <label for="ilac-aciklama">Reçete Notu</label>
-                <textarea class="form-control custom-input scrollable-box" id="ilac-aciklama" name="IlacAciklama" rows="5" maxlength="3000"></textarea>
+                <textarea class="form-control custom-input scrollable-box" id="ilac-aciklama" asp-for="ReceteNotu" rows="2" maxlength="3000"></textarea>
                 <div class="char-counter" id="char-count">0 / 3000</div>
             </div>
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <label for="onaylayan-doktor">Onaylayacak Doktor</label>
-                    <select class="form-control custom-input" id="onaylayan-doktor" name="OnaylayanDoktorID">
+                    <select class="form-control custom-input" id="onaylayan-doktor" asp-for="OnaylayacakDoktorID">
                         <option value="">Doktor Seçiniz</option>
                         @foreach (var doktor in Model.Doktorlar)
                         {
@@ -104,7 +112,7 @@
                 </div>
                 <div class="form-group col-md-6">
                     <label for="servis">Lütfen Servis Seçiniz</label>
-                    <select class="form-control custom-input" id="servis" name="ServisID">
+                    <select class="form-control custom-input" id="servis" asp-for="OnaylananServis">
                         <option value="">Servis Seçiniz</option>
                         @foreach (var servis in Model.Doktor_Servisleri)
                         {

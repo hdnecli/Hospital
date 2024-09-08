@@ -18,6 +18,6 @@ namespace TaniProjesi.Data
         public DbSet<Doktorlar> Doktorlar { get; set; }
         public DbSet<Doktor_Servisleri> Doktor_Servisleri { get; set; }
         public DbSet<Verilis_Yollari> Verilis_Yollari { get; set; }
-
+        public DbSet<Recete> Recete { get; set; }
     }
 }

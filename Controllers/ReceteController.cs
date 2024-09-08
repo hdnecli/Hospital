@@ -14,7 +14,7 @@ public class ReceteController : Controller{
         _context = context;
     }
 
-    public IActionResult Index(int hastaNo, string search)
+    public IActionResult Index(int hastaNo)
     {
         var hasta = _context.Hastalar.FirstOrDefault(h => h.HastaNo == hastaNo);
         if (hasta == null)
@@ -22,41 +22,35 @@ public class ReceteController : Controller{
             return NotFound();
         }
 
-        var doktorlar = _context.Doktorlar
-            .Where(d => d.Aktif == "T")
-            .Select(d => new SelectListItem
-            {
-                Value = d.ID.ToString(),
-                Text = d.Doktor_Adi + " " + d.Doktor_Soyadi
-            })
-            .ToList();
-
-        var servisler = _context.Doktor_Servisleri
-            .Select(s => new SelectListItem
-            {
-                Value = s.ID.ToString(),
-                Text = s.Doktor_Servisi
-            })
-            .Distinct()
-            .ToList();
-
         var model = new ReceteViewModel
         {
-            Hasta = hasta,
-            Ilaclar = new List<Ilaclar>(),
-            Doktorlar = doktorlar,
-            Doktor_Servisleri = servisler
+            HastaNo = hastaNo,
+            HastaBilgileri = new HastaViewModel
+            {
+                Adi = hasta.Adi,
+                Soyadi = hasta.Soyadi,
+                Adres = hasta.Adres,
+                AnneAdi = hasta.AnneAdi,
+                BabaAdi = hasta.BabaAdi,
+                Telefon = hasta.Telefon
+            },
+            Doktorlar = _context.Doktorlar
+                .Where(d => d.Aktif == "T")
+                .Select(d => new SelectListItem
+                {
+                    Value = d.ID.ToString(),
+                    Text = d.Doktor_Adi + " " + d.Doktor_Soyadi
+                })
+                .ToList(),
+            Doktor_Servisleri = _context.Doktor_Servisleri
+                .Select(s => new SelectListItem
+                {
+                    Value = s.ID.ToString(),
+                    Text = s.Doktor_Servisi
+                })
+                .Distinct()
+                .ToList()
         };
-
-        if (!string.IsNullOrEmpty(search))
-        {
-            var ilaclar = _context.Ilaclar
-                .Where(i => i.Ilac_adi.Contains(search) || i.Barkod.Contains(search))
-                .Take(10)  
-                .ToList();
-
-            model.Ilaclar = ilaclar;
-        }
 
         return View(model);
     }
@@ -90,5 +84,58 @@ public class ReceteController : Controller{
         };
 
         return Json(new { ilaclar, verilisYollari, periyotBirimleri });
+    }
+
+    [HttpPost]
+    public IActionResult Kaydet(ReceteViewModel model)
+    {
+        if (ModelState.IsValid)
+        {
+            var recete = new Recete
+            {
+                HastaNo = model.HastaNo,
+                Tarih = model.Tarih,
+                ReceteTuru = model.ReceteTuru,
+                ReceteAitTuru = model.ReceteAitTuru,
+                ReceteNotu = model.ReceteNotu,
+                OnaylayacakDoktor = model.OnaylayacakDoktorID,
+                OnaylananServis = model.OnaylananServis
+            };
+
+            _context.Recete.Add(recete);
+            _context.SaveChanges();
+
+            return RedirectToAction("Index", new { hastaNo = model.HastaNo });
+        }
+
+        // Model geçerli değilse, hata mesajlarını loglayalım
+        foreach (var modelState in ModelState.Values)
+        {
+            foreach (var error in modelState.Errors)
+            {
+                Console.WriteLine(error.ErrorMessage);
+            }
+        }
+
+        // Formu tekrar göstermek için gerekli verileri yükleyelim
+        model.Doktorlar = _context.Doktorlar
+            .Where(d => d.Aktif == "T")
+            .Select(d => new SelectListItem
+            {
+                Value = d.ID.ToString(),
+                Text = d.Doktor_Adi + " " + d.Doktor_Soyadi
+            })
+            .ToList();
+
+        model.Doktor_Servisleri = _context.Doktor_Servisleri
+            .Select(s => new SelectListItem
+            {
+                Value = s.ID.ToString(),
+                Text = s.Doktor_Servisi
+            })
+            .Distinct()
+            .ToList();
+
+        return View("Index", model);
     }
 }
