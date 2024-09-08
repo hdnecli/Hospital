@@ -25,13 +25,4 @@ namespace TaniProjesi.Models
         public string BabaAdi { get; set; } = string.Empty;
         public string Telefon { get; set; } = string.Empty;
     }
-
-    public enum ReceteTuruEnum
-    {
-        Normal = 0,
-        Kirmizi = 1,
-        Yesil = 2,
-        Mor = 3,
-        Turuncu = 4
-    }
 }
