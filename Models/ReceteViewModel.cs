@@ -5,7 +5,6 @@ namespace TaniProjesi.Models
     public class ReceteViewModel
     {
         public int HastaNo { get; set; }
-        public List<Ilaclar> Ilaclar { get; set; } = new List<Ilaclar>();
         public List<SelectListItem> Doktorlar { get; set; } = new List<SelectListItem>();
         public List<SelectListItem> Doktor_Servisleri { get; set; } = new List<SelectListItem>();
         public int ReceteTuru { get; set; }

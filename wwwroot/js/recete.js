@@ -96,37 +96,68 @@ function araIlac() {
         .then(response => response.json())
         .then(data => {
             console.log('Gelen veri:', data);
-            var ilacListesiBody = document.getElementById('ilac-list-body');
-            ilacListesiBody.innerHTML = '';
-            data.ilaclar.forEach(ilac => {
-                var row = document.createElement('tr');
-                row.innerHTML = `
-                    <td>${ilac.ilac_adi}</td>
-                    <td><input type="number" class="kutu-input" min="1" max="10" value="1" data-ilac-id="${ilac.id}"></td>
-                    <td>
-                        <input type="number" class="doz-input" min="1" max="10" value="1" data-ilac-id="${ilac.id}">
-                        X
-                        <input type="number" class="doz-input" min="1" max="10" value="1" data-ilac-id="${ilac.id}">
-                    </td>
-                    <td>
-                        <select class="verilis-yolu-select" data-ilac-id="${ilac.id}">
-                            ${data.verilisYollari.map(yol => `<option value="${yol.id}">${yol.adi}</option>`).join('')}
-                        </select>
-                    </td>
-                    <td>
-                        <input type="number" class="periyot-input" min="1" max="10" value="1" data-ilac-id="${ilac.id}">
-                        <select class="periyot-birim-select" data-ilac-id="${ilac.id}">
-                            ${data.periyotBirimleri.map(birim => `<option value="${birim.id}">${birim.adi}</option>`).join('')}
-                        </select>
-                    </td>
-                    <td><button type="button" class="btn btn-primary btn-sm" onclick="ilacEkle(${ilac.id}, '${ilac.ilac_adi}')">Ekle</button></td>
-                    <td><button type="button" class="btn btn-danger btn-sm" onclick="ilacSil(${ilac.id})">Sil</button></td>
-                `;
-                ilacListesiBody.appendChild(row);
-            });
-            addInputListeners();
+            updateIlacList(data.ilaclar, data.verilisYollari, data.periyotBirimleri);
         })
         .catch(error => console.error('Error:', error));
+}
+
+function updateIlacList(ilaclar, verilisYollari, periyotBirimleri) {
+    var ilacListesiBody = document.getElementById('ilac-list');
+    ilacListesiBody.innerHTML = '';
+    
+    if (ilaclar.length === 0) {
+        ilacListesiBody.innerHTML = '<p>İlaç bulunamadı.</p>';
+        return;
+    }
+
+    var table = document.createElement('table');
+    table.className = 'table';
+    
+    var thead = document.createElement('thead');
+    thead.innerHTML = `
+        <tr>
+            <th>İlaç Adı</th>
+            <th>Kutu</th>
+            <th>Doz</th>
+            <th>Veriliş Yolu</th>
+            <th>Periyot</th>
+            <th>Ekle</th>
+            <th>Sil</th>
+        </tr>
+    `;
+    table.appendChild(thead);
+
+    var tbody = document.createElement('tbody');
+    ilaclar.forEach(ilac => {
+        var row = document.createElement('tr');
+        row.innerHTML = `
+            <td>${ilac.ilac_adi}</td>
+            <td><input type="number" class="kutu-input" min="1" max="10" value="1" data-ilac-id="${ilac.id}"></td>
+            <td>
+                <input type="number" class="doz-input" min="1" max="10" value="1" data-ilac-id="${ilac.id}">
+                X
+                <input type="number" class="doz-input" min="1" max="10" value="1" data-ilac-id="${ilac.id}">
+            </td>
+            <td>
+                <select class="verilis-yolu-select" data-ilac-id="${ilac.id}">
+                    ${verilisYollari.map(yol => `<option value="${yol.id}">${yol.adi}</option>`).join('')}
+                </select>
+            </td>
+            <td>
+                <input type="number" class="periyot-input" min="1" max="10" value="1" data-ilac-id="${ilac.id}">
+                <select class="periyot-birim-select" data-ilac-id="${ilac.id}">
+                    ${periyotBirimleri.map(birim => `<option value="${birim.id}">${birim.adi}</option>`).join('')}
+                </select>
+            </td>
+            <td><button type="button" class="btn btn-primary btn-sm" onclick="ilacEkle(${ilac.id}, '${ilac.ilac_adi}')">Ekle</button></td>
+            <td><button type="button" class="btn btn-danger btn-sm" onclick="ilacSil(${ilac.id})">Sil</button></td>
+        `;
+        tbody.appendChild(row);
+    });
+    table.appendChild(tbody);
+
+    ilacListesiBody.appendChild(table);
+    addInputListeners();
 }
 
 function addInputListeners() {

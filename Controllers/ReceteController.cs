@@ -52,6 +52,7 @@ public class ReceteController : Controller{
                 .ToList()
         };
 
+        PopulateViewModelLists(model);
         return View(model);
     }
 
@@ -108,16 +109,12 @@ public class ReceteController : Controller{
             return RedirectToAction("Index", new { hastaNo = model.HastaNo });
         }
 
-        // Model geçerli değilse, hata mesajlarını loglayalım
-        foreach (var modelState in ModelState.Values)
-        {
-            foreach (var error in modelState.Errors)
-            {
-                Console.WriteLine(error.ErrorMessage);
-            }
-        }
+        PopulateViewModelLists(model);
+        return View("Index", model);
+    }
 
-        // Formu tekrar göstermek için gerekli verileri yükleyelim
+    private void PopulateViewModelLists(ReceteViewModel model)
+    {
         model.Doktorlar = _context.Doktorlar
             .Where(d => d.Aktif == "T")
             .Select(d => new SelectListItem
@@ -135,7 +132,5 @@ public class ReceteController : Controller{
             })
             .Distinct()
             .ToList();
-
-        return View("Index", model);
     }
 }
