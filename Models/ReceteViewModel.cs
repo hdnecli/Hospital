@@ -7,5 +7,6 @@ namespace TaniProjesi.Models
         public required Hastalar Hasta { get; set; }
         public required List<Ilaclar> Ilaclar { get; set; }
         public required List<SelectListItem> Doktorlar { get; set; }
+        public required List<SelectListItem> Doktor_Servisleri { get; set; }
     }
 }

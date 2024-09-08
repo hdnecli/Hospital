@@ -46,6 +46,34 @@ document.addEventListener('DOMContentLoaded', function() {
     } else {
         console.error('Ara butonu bulunamadı');
     }
+
+    const elektronikOnayCheckbox = document.getElementById('elektronikOnay');
+    const kaydetBtn = document.getElementById('kaydetBtn');
+    const kaydetYazdirBtn = document.getElementById('kaydetYazdirBtn');
+
+    elektronikOnayCheckbox.addEventListener('change', function() {
+        if (this.checked) {
+            kaydetBtn.disabled = false;
+            kaydetYazdirBtn.disabled = false;
+        } else {
+            kaydetBtn.disabled = true;
+            kaydetYazdirBtn.disabled = true;
+        }
+    });
+
+    kaydetBtn.addEventListener('click', function(event) {
+        if (!elektronikOnayCheckbox.checked) {
+            event.preventDefault();
+            alert('Lütfen elektronik onay kutusunu işaretleyin.');
+        }
+    });
+
+    kaydetYazdirBtn.addEventListener('click', function(event) {
+        if (!elektronikOnayCheckbox.checked) {
+            event.preventDefault();
+            alert('Lütfen elektronik onay kutusunu işaretleyin.');
+        }
+    });
 });
 
 function araIlac() {

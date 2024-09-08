@@ -31,11 +31,21 @@ public class ReceteController : Controller{
             })
             .ToList();
 
+        var servisler = _context.Doktor_Servisleri
+            .Select(s => new SelectListItem
+            {
+                Value = s.ID.ToString(),
+                Text = s.Doktor_Servisi
+            })
+            .Distinct()
+            .ToList();
+
         var model = new ReceteViewModel
         {
             Hasta = hasta,
             Ilaclar = new List<Ilaclar>(),
-            Doktorlar = doktorlar
+            Doktorlar = doktorlar,
+            Doktor_Servisleri = servisler
         };
 
         if (!string.IsNullOrEmpty(search))

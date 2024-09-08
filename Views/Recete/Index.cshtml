@@ -85,18 +85,38 @@
                 <textarea class="form-control custom-input scrollable-box" id="ilac-aciklama" name="IlacAciklama" rows="5" maxlength="3000"></textarea>
                 <div class="char-counter" id="char-count">0 / 3000</div>
             </div>
-            <div class="form-group">
-                <label for="onaylayan-doktor">Onaylayan Doktor</label>
-                <select class="form-control custom-input" id="onaylayan-doktor" name="OnaylayanDoktor">
-                    @foreach (var doktor in Model.Doktorlar)
-                    {
-                        <option value="@doktor.Value">@doktor.Text</option>
-                    }
-                </select>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="onaylayan-doktor">Onaylayacak Doktor</label>
+                    <select class="form-control custom-input" id="onaylayan-doktor" name="OnaylayanDoktorID">
+                        <option value="">Doktor Seçiniz</option>
+                        @foreach (var doktor in Model.Doktorlar)
+                        {
+                            <option value="@doktor.Value">@doktor.Text</option>
+                        }
+                    </select>
+                    <div class="form-check mt-2">
+                        <input class="form-check-input" type="checkbox" id="elektronikOnay" name="ElektronikOnay">
+                        <label class="form-check-label" for="elektronikOnay">
+                            Bu raporu elektronik olarak onaylıyorum.
+                        </label>
+                    </div>
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="servis">Lütfen Servis Seçiniz</label>
+                    <select class="form-control custom-input" id="servis" name="ServisID">
+                        <option value="">Servis Seçiniz</option>
+                        @foreach (var servis in Model.Doktor_Servisleri)
+                        {
+                            <option value="@servis.Value">@servis.Text</option>
+                        }
+                    </select>
+                </div>
+            </div>
             <div class="form-group button-group">
                 <button type="button" class="btn btn-secondary">Vazgeç</button>
-                <button type="submit" class="btn btn-primary">Kaydet</button>
-                <button type="submit" class="btn btn-success">Kaydet ve Yazdır</button>
+                <button type="submit" class="btn btn-primary" id="kaydetBtn" disabled>Kaydet</button>
+                <button type="submit" class="btn btn-success" id="kaydetYazdirBtn" disabled>Kaydet ve Yazdır</button>
             </div>
         </form>
     </div>
