@@ -176,9 +176,12 @@ function addInputListeners() {
 function addToSelected(id, name, code) {
     const taniItem = document.createElement('div');
     taniItem.dataset.id = id;
+    taniItem.dataset.code = code;
 
     taniItem.innerHTML = `
-        ${code} - ${name} `;
+        <input type="checkbox" id="tani_${id}" checked>
+        <label for="tani_${id}">${code} - ${name}</label>`;
+    
     const selectedList = document.getElementById('selectedList');
     let added = false;
 
@@ -209,3 +212,44 @@ function ilacEkle(ilacId, ilacAdi) {
 function ilacSil(ilacId) {
     console.log("İlaç silindi: " + ilacId);
 }
+
+document.getElementById('kaydetBtn').addEventListener('click', function(event) {
+    event.preventDefault();
+
+    // Reçete türünü hidden input'a ata
+    const receteTuru = document.querySelector('.recete-btn.active');
+    if (receteTuru) {
+        document.getElementById('ReceteTuru').value = receteTuru.dataset.type;
+    } else {
+        console.error('Reçete türü seçilmedi');
+        return;
+    }
+
+    // Tanıları ekle
+    const selectedTanilarContainer = document.getElementById('selectedTanilarContainer');
+    selectedTanilarContainer.innerHTML = '';
+    const selectedTanilar = document.querySelectorAll('#selectedList > div');
+    
+    selectedTanilar.forEach((tani, index) => {
+        const taniKodu = tani.dataset.code;
+        const aktif = tani.querySelector('input[type="checkbox"]').checked ? "T" : "F";
+
+        const taniKoduInput = document.createElement('input');
+        taniKoduInput.type = 'hidden';
+        taniKoduInput.name = `taniler[${index}].TaniKodu`;
+        taniKoduInput.value = taniKodu;
+
+        const aktifInput = document.createElement('input');
+        aktifInput.type = 'hidden';
+        aktifInput.name = `taniler[${index}].Aktif`;
+        aktifInput.value = aktif;
+
+        selectedTanilarContainer.appendChild(taniKoduInput);
+        selectedTanilarContainer.appendChild(aktifInput);
+    });
+
+    const form = document.querySelector('form');
+    const formData = new FormData(form);
+
+    form.submit();
+});

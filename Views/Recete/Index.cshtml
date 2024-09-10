@@ -9,7 +9,8 @@
         <div class="form-header">
             <h4>Reçete - Hasta No: @Model.HastaNo</h4>
         </div>
-        <form method="post" asp-action="Kaydet">
+        <form method="post" asp-controller="Recete" asp-action="Kaydet">
+            @Html.AntiForgeryToken()
             <input type="hidden" asp-for="HastaNo" />
             <input type="hidden" asp-for="Adi" />
             <input type="hidden" asp-for="Soyadi" />
@@ -17,6 +18,7 @@
             <input type="hidden" asp-for="AnneAdi" />
             <input type="hidden" asp-for="BabaAdi" />
             <input type="hidden" asp-for="Telefon" />
+            <input type="hidden" id="ReceteTuru" asp-for="ReceteTuru" />
 
             <div class="form-group">
                 <label for="tarih">Tarih</label>
@@ -53,7 +55,7 @@
                 <div>
                     <label for="tani-screen">Tanı Seç</label>
                     <div id="selectedList">
-                        
+                        <!-- Seçilen tanılar buraya eklenecek -->
                     </div>
                 </div>
             </div>
@@ -108,8 +110,12 @@
             </div>
             <div class="form-group button-group">
                 <button type="button" class="btn btn-secondary">Vazgeç</button>
-                <button type="submit" class="btn btn-primary" id="kaydetBtn" disabled>Kaydet</button>
+                <button type="submit" class="btn btn-primary" id="kaydetBtn">Kaydet</button>
                 <button type="submit" class="btn btn-success" id="kaydetYazdirBtn" disabled>Kaydet ve Yazdır</button>
+            </div>
+            
+            <div id="selectedTanilarContainer">
+                <!-- Seçili tanılar için hidden input'lar buraya eklenecek -->
             </div>
         </form>
     </div>
