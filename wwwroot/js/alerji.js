@@ -51,7 +51,7 @@ document.addEventListener('DOMContentLoaded', function() {
             .map(btn => btn.textContent.trim());
         
         document.getElementById('AlerjiAdi').value = seciliAlerjiTurleri.join(', ');
-        
+                
         this.submit();
     });
 });

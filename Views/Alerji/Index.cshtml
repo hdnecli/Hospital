@@ -10,6 +10,7 @@
             <h4>Alerji - Hasta No: @Model.HastaNo</h4>
         </div>
         <form method="post" asp-controller="Alerji" asp-action="Kaydet">
+            <input type="hidden" asp-for="HastaNo" />
             <div class="form-group">
                 <label for="alerjiVarMi">Alerjisi var mı?</label>
                 <div class="btn-group" id="alerjiVarMi">

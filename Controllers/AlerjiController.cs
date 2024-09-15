@@ -28,6 +28,7 @@ public class AlerjiController : Controller
     [HttpPost]
     public IActionResult Kaydet(AlerjiViewModel model)
     {
+        Console.WriteLine($"Gelen HastaNo: {model.HastaNo}");
         if (ModelState.IsValid)
         {
             var kullaniciAdi = User.Identity?.Name ?? "Bilinmeyen Kullanıcı";
@@ -38,7 +39,7 @@ public class AlerjiController : Controller
                 Alerji_Adi = string.Join(", ", model.Alerji_Adi ?? new List<string>()),
                 Alerji_Notu = model.Alerji_Notu,
                 Guncelleyen = kullaniciAdi,
-                Guncelleme_Tarihi = DateTime.Now.Date 
+                Guncelleme_Tarihi = DateTime.Now.Date
             };
 
             _context.Alerji_Kayit.Add(alerjiKayit);
