@@ -6,8 +6,8 @@ namespace TaniProjesi.Models
     {
         public int HastaNo { get; set; }
         public List<string> Alerji_Adi { get; set; } = new List<string>();
-        public string? AlerjiNotu { get; set; }
-        public List<SelectListItem> Doktorlar { get; set; } = new List<SelectListItem>();
-        public int OnaylayacakDoktorID { get; set; } = 0;
+        public string? Alerji_Notu { get; set; }
+        public string? Guncelleyen { get; set; }
+        public DateTime? Guncelleme_Tarihi { get; set; }
     }
 }

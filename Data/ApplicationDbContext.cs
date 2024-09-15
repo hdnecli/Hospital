@@ -21,5 +21,6 @@ namespace TaniProjesi.Data
         public DbSet<Recete> Recete { get; set; }
         public DbSet<ReceteTanilari> ReceteTanilari { get; set; }
         public DbSet<Alerji> Alerji { get; set; }
+        public DbSet<Alerji_Kayit> Alerji_Kayit { get; set; }
     }
 }

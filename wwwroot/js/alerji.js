@@ -43,5 +43,16 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     alerjiTurBtnGroup.style.display = 'none';
+
+    document.querySelector('form').addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        const seciliAlerjiTurleri = Array.from(document.querySelectorAll('#alerjiTurBtnGroup .alerji-btn.active'))
+            .map(btn => btn.textContent.trim());
+        
+        document.getElementById('AlerjiAdi').value = seciliAlerjiTurleri.join(', ');
+        
+        this.submit();
+    });
 });
 

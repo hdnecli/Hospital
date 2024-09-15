@@ -29,12 +29,12 @@
             </div>
             <div class="form-group">
                 <label for="ilac-aciklama">Alerji Notu</label>
-                <textarea class="form-control custom-input scrollable-box" id="alerji-aciklama" asp-for="AlerjiNotu" rows="2" maxlength="3000"></textarea>
+                <textarea class="form-control custom-input scrollable-box" id="alerji-aciklama" asp-for="Alerji_Notu" rows="2" maxlength="3000"></textarea>
                 <div class="char-counter" id="char-count">0 / 3000</div>
             </div>
             <div class="form-group button-group">
                 <div class="guncelleyen">
-                    <span>Son Güncelleyen: Hamdi</span>
+                    <span>Son Güncelleyen: @Model.Guncelleyen</span>
                     <span>@DateTime.Now.ToString("dd.MM.yyyy HH:mm")</span>
                 </div>
                 <button type="button" class="btn btn-secondary">Vazgeç</button>

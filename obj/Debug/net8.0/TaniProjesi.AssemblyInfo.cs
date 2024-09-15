@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("TaniProjesi")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+bdbb9839e0e5965d3e40e018a75a6498bcb6ec34")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+8a36c26090b4b99c2845e76b8bc0f78c68e3eb1b")]
 [assembly: System.Reflection.AssemblyProductAttribute("TaniProjesi")]
 [assembly: System.Reflection.AssemblyTitleAttribute("TaniProjesi")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
