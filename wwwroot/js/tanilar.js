@@ -36,6 +36,13 @@ function moveToRecete() {
     const url = `/Recete/Index?hastaNo=${hastaNo}`;
     window.location.href = url;
 }
+
+function moveToRapor() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const hastaNo = urlParams.get('hastaNo');
+    const url = `/Rapor/Index?hastaNo=${hastaNo}`;
+    window.location.href = url;
+}
  
 function addSelectedTanilar() {
     const selectedCheckboxesElements = JSON.parse(sessionStorage.getItem('selected'));
