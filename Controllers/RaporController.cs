@@ -38,4 +38,34 @@ public class RaporController : Controller
         };
         return View(model);
     }
+
+    [HttpPost]
+    public IActionResult Kaydet(RaporViewModel model)
+    {
+        if (!ModelState.IsValid)
+        {
+            return View("Index", model);
+        }
+
+        var raporKayit = KaydetRapor(model);
+        _context.Rapor_Bilgileri.Add(raporKayit);
+        _context.SaveChanges();
+
+        return RedirectToAction("Index", "HastaIslemleri");
+    }
+
+    private static Rapor_Bilgileri KaydetRapor(RaporViewModel model)
+    {
+        return new Rapor_Bilgileri
+        {
+            HastaNo = model.HastaNo,
+            BaslangicTarihi = model.BaslangicTarihi,
+            BitisTarihi = model.BitisTarihi,
+            RaporBitiminde = model.RaporBitiminde,
+            Rapor_Notu = model.Rapor_Notu,
+            Tanilar = string.Join(", ", model.Tanilar),
+            OnaylayacakDoktor = model.OnaylayacakDoktor,
+            OnaylananServis = model.OnaylananServis
+        };
+    }
 }

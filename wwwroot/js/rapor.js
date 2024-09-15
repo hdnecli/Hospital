@@ -23,6 +23,31 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     }
+//
+    const form = document.querySelector('form');
+    const tanilarInput = document.getElementById('Tanilar');
+
+    function updateTanilarInput() {
+        const seciliTanilar = Array.from(document.querySelectorAll('#selectedList input[type="checkbox"]:checked'))
+            .map(checkbox => checkbox.nextElementSibling.textContent.split(' - ')[0]);
+        tanilarInput.value = seciliTanilar.join(', ');
+    }
+
+    document.getElementById('selectedList').addEventListener('change', updateTanilarInput);
+
+    form.addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        const raporBitiminde = document.querySelector('.rapor-btn.active').dataset.type;
+        document.getElementById('RaporBitiminde').value = raporBitiminde;
+
+        updateTanilarInput();
+
+        console.log('Gönderilen Tanılar:', tanilarInput.value);
+
+        form.submit();
+    });
+//
 });
 
 document.querySelectorAll('.rapor-btn').forEach(button => {

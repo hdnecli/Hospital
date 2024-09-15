@@ -24,10 +24,10 @@
             <div class="form-group">
                 <label for="raporTurBtnGroup">Rapor Bitiminde</label>
                 <div class="btn-group" id="raporTurBtnGroup">
-                    <button type="button" class="rapor-btn" data-type="0">Çalışır</button>
-                    <button type="button" class="rapor-btn" data-type="1">Kontrol</button>
+                    <button type="button" class="rapor-btn" data-type="Çalışır">Çalışır</button>
+                    <button type="button" class="rapor-btn" data-type="Kontrol">Kontrol</button>
                 </div>
-                <input type="hidden" id="RaporBitiminde" asp-for="RaporBitiminde" value="0">
+                <input type="hidden" id="RaporBitiminde" asp-for="RaporBitiminde" value="">
             </div>
             <div class="form-group">
                 <label for="rapor-notu">Rapor Açıklaması</label>
@@ -36,11 +36,12 @@
             </div>
             <div class="form-group">
                 <div>
-                    <label for="tani-screen">Tanı Seç</label>
+                    <label for="selectedList">Tanılar</label>
                     <div id="selectedList">
                         <!-- Seçilen tanılar buraya eklenecek -->
                     </div>
                 </div>
+                <input type="hidden" id="Tanilar" asp-for="Tanilar" value="">
             </div>
             <div class="form-group">
                 <div>
@@ -50,7 +51,7 @@
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <label for="onaylayan-doktor">Onaylayacak Doktor</label>
-                    <select class="form-control custom-input" id="onaylayan-doktor" asp-for="OnaylayacakDoktorID">
+                    <select class="form-control custom-input" id="onaylayan-doktor" asp-for="OnaylayacakDoktor">
                         <option value="">Doktor Seçiniz</option>
                         @foreach (var doktor in Model.Doktorlar)
                         {
@@ -78,7 +79,7 @@
             <div class="form-group button-group">
                 <button type="button" class="btn btn-secondary">Vazgeç</button>
                 <button type="submit" class="btn btn-primary" id="kaydetBtn">Kaydet</button>
-                <button type="submit" class="btn btn-success" id="kaydetYazdirBtn" disabled>Kaydet ve Yazdır</button>
+                <button type="submit" class="btn btn-success" id="kaydetYazdirBtn">Kaydet ve Yazdır</button>
             </div>
             
             <div id="selectedTanilarContainer">
