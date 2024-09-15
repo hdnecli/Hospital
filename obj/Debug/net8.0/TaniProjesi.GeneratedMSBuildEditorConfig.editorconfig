@@ -18,6 +18,10 @@ build_property.GenerateRazorMetadataSourceChecksumAttributes =
 build_property.MSBuildProjectDirectory = /home/hamdi/Desktop/Acibadem/TaniProjesi
 build_property._RazorSourceGeneratorDebug = 
 
+[/home/hamdi/Desktop/Acibadem/TaniProjesi/Views/Alerji/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQWxlcmppL0luZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
 [/home/hamdi/Desktop/Acibadem/TaniProjesi/Views/HastaIslemleri/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvSGFzdGFJc2xlbWxlcmkvSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 

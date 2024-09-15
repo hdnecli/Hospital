@@ -20,5 +20,6 @@ namespace TaniProjesi.Data
         public DbSet<Verilis_Yollari> Verilis_Yollari { get; set; }
         public DbSet<Recete> Recete { get; set; }
         public DbSet<ReceteTanilari> ReceteTanilari { get; set; }
+        public DbSet<Alerji> Alerji { get; set; }
     }
 }

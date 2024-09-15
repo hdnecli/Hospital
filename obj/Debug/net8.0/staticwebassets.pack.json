@@ -13,6 +13,10 @@
       "PackagePath": "staticwebassets/favicon.ico"
     },
     {
+      "Id": "/home/hamdi/Desktop/Acibadem/TaniProjesi/wwwroot/js/alerji.js",
+      "PackagePath": "staticwebassets/js/alerji.js"
+    },
+    {
       "Id": "/home/hamdi/Desktop/Acibadem/TaniProjesi/wwwroot/js/hastalar.js",
       "PackagePath": "staticwebassets/js/hastalar.js"
     },

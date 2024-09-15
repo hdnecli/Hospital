@@ -69,3 +69,11 @@ document.querySelectorAll('.recete-yaz').forEach(function(button) {
         window.location.href = url;
     });
 });
+
+document.querySelectorAll('.alerji-ekle').forEach(function(button) {
+    button.addEventListener('click', function(){
+        const hastaNo = this.getAttribute('data-hasta-id');
+        const url = `/Alerji/Index?hastaNo=${hastaNo}`; 
+        window.location.href = url;
+    });
+});

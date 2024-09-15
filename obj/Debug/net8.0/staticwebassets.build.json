@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "AeSIwbv4PZ337GXpc2ECXu6RYLZYPFCTRnP/CMVNCG8=",
+  "Hash": "jAGPQeNk95QQgg7Rf4zYB4MKMR6yvNU2hNaNiAi4mrk=",
   "Source": "TaniProjesi",
   "BasePath": "_content/TaniProjesi",
   "Mode": "Default",
@@ -91,6 +91,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot/favicon.ico"
+    },
+    {
+      "Identity": "/home/hamdi/Desktop/Acibadem/TaniProjesi/wwwroot/js/alerji.js",
+      "SourceId": "TaniProjesi",
+      "SourceType": "Discovered",
+      "ContentRoot": "/home/hamdi/Desktop/Acibadem/TaniProjesi/wwwroot/",
+      "BasePath": "_content/TaniProjesi",
+      "RelativePath": "js/alerji.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot/js/alerji.js"
     },
     {
       "Identity": "/home/hamdi/Desktop/Acibadem/TaniProjesi/wwwroot/js/hastalar.js",
