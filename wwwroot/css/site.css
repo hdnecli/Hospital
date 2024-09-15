@@ -316,3 +316,20 @@ tr:nth-child(even) {
   font-style: italic;
   font-weight: bold;
 }
+
+.rapor-btn {
+  padding: 10px 15px;
+  border: none;
+  background-color: #ddd;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.rapor-btn.active {
+  background-color: #258cfb;
+  color: white;
+}
+
+.rapor-btn:not(.active):hover {
+  background-color: #bbb;
+}

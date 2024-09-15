@@ -15,3 +15,10 @@ document.addEventListener('DOMContentLoaded', function() {
         charCountDisplay.textContent = `${charCount} / 3000`;
     });
 });
+
+document.querySelectorAll('.rapor-btn').forEach(button => {
+    button.addEventListener('click', function() {
+        document.querySelectorAll('.rapor-btn').forEach(btn => btn.classList.remove('active'));
+        this.classList.add('active');
+    });
+});
