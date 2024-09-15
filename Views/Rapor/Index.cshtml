@@ -1,0 +1,93 @@
+@model RaporViewModel
+
+@{
+    ViewData["Title"] = "Rapor";
+}
+
+<div class="container mt-5">
+    <div class="form-container">
+        <div class="form-header">
+            <h4>Rapor - Hasta No: @Model.HastaNo</h4>
+        </div>
+        <form method="post" asp-controller="Rapor" asp-action="Kaydet">
+            <input type="hidden" asp-for="HastaNo" />
+            <div class="form-group">
+                <label for="raporBaslangicTarihi">Rapor Başlangıç Tarihi</label>
+                <div class="btn-group" id="raporBaslangicTarihi">
+                    <input type="date" id="tarih" asp-for="BaslangicTarihi" class="custom-input" placeholder="Tarih Seçin">
+                </div>
+                <label for="raporBitisTarihi">Rapor Bitiş Tarihi</label>
+                <div class="btn-group" id="raporBitisTarihi">
+                    <input type="date" id="tarih" asp-for="BitisTarihi" class="custom-input" placeholder="Tarih Seçin">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="raporTurBtnGroup">Rapor Bitiminde</label>
+                <div class="btn-group" id="raporTurBtnGroup">
+                    <button type="button" class="rapor-btn" data-type="0">Çalışır</button>
+                    <button type="button" class="rapor-btn" data-type="1">Kontrol</button>
+                </div>
+                <input type="hidden" id="RaporBitiminde" asp-for="RaporBitiminde" value="0">
+            </div>
+            <div class="form-group">
+                <label for="rapor-aciklama">Rapor Açıklaması</label>
+                <textarea class="form-control custom-input scrollable-box" id="rapor-aciklama" asp-for="Rapor_Notu" rows="2" maxlength="3000"></textarea>
+                <div class="char-counter" id="char-count">0 / 3000</div>
+            </div>
+            <div class="form-group">
+                <div>
+                    <label for="tani-screen">Tanı Seç</label>
+                    <div id="selectedList">
+                        <!-- Seçilen tanılar buraya eklenecek -->
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div>
+                    <button type="button" class="link-btn" onclick="openTani()">Tanı Ekle</button>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="onaylayan-doktor">Onaylayacak Doktor</label>
+                    <select class="form-control custom-input" id="onaylayan-doktor" asp-for="OnaylayacakDoktorID">
+                        <option value="">Doktor Seçiniz</option>
+                        @foreach (var doktor in Model.Doktorlar)
+                        {
+                            <option value="@doktor.Value">@doktor.Text</option>
+                        }
+                    </select>
+                    <div class="form-check mt-2">
+                        <input class="form-check-input" type="checkbox" id="elektronikOnay" name="ElektronikOnay">
+                        <label class="form-check-label" for="elektronikOnay">
+                            Bu raporu elektronik olarak onaylıyorum.
+                        </label>
+                    </div>
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="servis">Lütfen Servis Seçiniz</label>
+                    <select class="form-control custom-input" id="servis" asp-for="OnaylananServis">
+                        <option value="">Servis Seçiniz</option>
+                        @foreach (var servis in Model.Doktor_Servisleri)
+                        {
+                            <option value="@servis.Value">@servis.Text</option>
+                        }
+                    </select>
+                </div>
+            </div>
+            <div class="form-group button-group">
+                <button type="button" class="btn btn-secondary">Vazgeç</button>
+                <button type="submit" class="btn btn-primary" id="kaydetBtn">Kaydet</button>
+                <button type="submit" class="btn btn-success" id="kaydetYazdirBtn" disabled>Kaydet ve Yazdır</button>
+            </div>
+            
+            <div id="selectedTanilarContainer">
+                <!-- Seçili tanılar için hidden input'lar buraya eklenecek -->
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/js/rapor.js"></script>
+}

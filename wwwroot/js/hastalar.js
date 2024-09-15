@@ -77,3 +77,11 @@ document.querySelectorAll('.alerji-ekle').forEach(function(button) {
         window.location.href = url;
     });
 });
+
+document.querySelectorAll('.rapor-ekle').forEach(function(button) {
+    button.addEventListener('click', function(){
+        const hastaNo = this.getAttribute('data-hasta-id');
+        const url = `/Rapor/Index?hastaNo=${hastaNo}`; 
+        window.location.href = url;
+    });
+});
