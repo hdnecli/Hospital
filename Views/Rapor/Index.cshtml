@@ -59,7 +59,7 @@
                         }
                     </select>
                     <div class="form-check mt-2">
-                        <input class="form-check-input" type="checkbox" id="elektronikOnay" name="ElektronikOnay">
+                        <input class="form-check-input" type="checkbox" id="elektronikOnay" asp-for="ElektronikOnay">
                         <label class="form-check-label" for="elektronikOnay">
                             Bu raporu elektronik olarak onaylıyorum.
                         </label>
@@ -96,7 +96,6 @@
             e.preventDefault();
             var form = document.getElementById('raporForm');
             form.action = '@Url.Action("RaporYazdir", "Rapor")';
-            form.asp-action = "RaporYazdir";
             form.submit();
         });
     </script>

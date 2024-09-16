@@ -17,4 +17,5 @@ public class RaporViewModel
     public string? HastaAdSoyad { get; set; }
     public string? OnaylayacakDoktorAdSoyad { get; set; }
     public string? OnaylananServisAdi { get; set; }
+    public bool ElektronikOnay { get; set; }
 }

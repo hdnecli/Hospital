@@ -11,6 +11,7 @@
     <p><strong>Tanılar:</strong> @string.Join(", ", Model.Tanilar)</p>
     <p><strong>Onaylayacak Doktor:</strong> @Model.OnaylayacakDoktorAdSoyad</p>
     <p><strong>Onaylanan Servis:</strong> @Model.OnaylananServisAdi</p>
+    <p><strong>Rapor Durumu:</strong> @(Model.ElektronikOnay ? "Rapor Onaylıdır" : "Rapor Onaysızdır")</p>
 </div>
 
 <button onclick="window.print()">Yazdır</button>
