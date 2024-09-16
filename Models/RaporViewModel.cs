@@ -14,4 +14,7 @@ public class RaporViewModel
     public int OnaylayacakDoktor { get; set; }
     public int OnaylananServis { get; set; }
     public List<string> Tanilar { get; set; } = new List<string>();
+    public string? HastaAdSoyad { get; set; }
+    public string? OnaylayacakDoktorAdSoyad { get; set; }
+    public string? OnaylananServisAdi { get; set; }
 }

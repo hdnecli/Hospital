@@ -17,8 +17,15 @@ public class RaporController : Controller
 
     public IActionResult Index(int hastaNo)
     {
+        var hasta = _context.Hastalar.FirstOrDefault(h => h.HastaNo == hastaNo);
+        if (hasta == null)
+        {
+            return NotFound();
+        }
+
         var model = new RaporViewModel {
             HastaNo = hastaNo,
+            HastaAdSoyad = $"{hasta.Adi} {hasta.Soyadi}", 
             Doktorlar = _context.Doktorlar
                 .Where(d => d.Aktif == "T")
                 .Select(d => new SelectListItem
@@ -65,6 +72,14 @@ public class RaporController : Controller
         var raporKayit = KaydetRapor(model);
         _context.Rapor_Bilgileri.Add(raporKayit);
         _context.SaveChanges();
+
+        var hasta = _context.Hastalar.FirstOrDefault(h => h.HastaNo == model.HastaNo);
+        var doktor = _context.Doktorlar.FirstOrDefault(d => d.ID == model.OnaylayacakDoktor);
+        var servis = _context.Doktor_Servisleri.FirstOrDefault(s => s.ID == model.OnaylananServis);
+
+        model.HastaAdSoyad = hasta != null ? $"{hasta.Adi} {hasta.Soyadi}" : "";
+        model.OnaylayacakDoktorAdSoyad = doktor != null ? $"{doktor.Doktor_Adi} {doktor.Doktor_Soyadi}" : "";
+        model.OnaylananServisAdi = servis?.Doktor_Servisi ?? "";
 
         return View("RaporYazdir", model);
     }
