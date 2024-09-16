@@ -9,7 +9,7 @@
         <div class="form-header">
             <h4>Rapor - Hasta No: @Model.HastaNo</h4>
         </div>
-        <form method="post" asp-controller="Rapor" asp-action="Kaydet">
+        <form method="post" asp-controller="Rapor" asp-action="Kaydet" id="raporForm">
             <input type="hidden" asp-for="HastaNo" />
             <div class="form-group">
                 <label for="raporBaslangicTarihi">Rapor Başlangıç Tarihi</label>
@@ -79,7 +79,7 @@
             <div class="form-group button-group">
                 <button type="button" class="btn btn-secondary">Vazgeç</button>
                 <button type="submit" class="btn btn-primary" id="kaydetBtn">Kaydet</button>
-                <button type="submit" class="btn btn-success" id="kaydetYazdirBtn">Kaydet ve Yazdır</button>
+                <button type="button" class="btn btn-success" id="kaydetYazdirBtn">Kaydet ve Yazdır</button>
             </div>
             
             <div id="selectedTanilarContainer">
@@ -91,4 +91,13 @@
 
 @section Scripts {
     <script src="~/js/rapor.js"></script>
+    <script>
+        document.getElementById('kaydetYazdirBtn').addEventListener('click', function(e) {
+            e.preventDefault();
+            var form = document.getElementById('raporForm');
+            form.action = '@Url.Action("RaporYazdir", "Rapor")';
+            form.asp-action = "RaporYazdir";
+            form.submit();
+        });
+    </script>
 }

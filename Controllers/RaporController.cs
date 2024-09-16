@@ -54,18 +54,39 @@ public class RaporController : Controller
         return RedirectToAction("Index", "HastaIslemleri");
     }
 
-    private static Rapor_Bilgileri KaydetRapor(RaporViewModel model)
+    [HttpPost]
+    public IActionResult RaporYazdir(RaporViewModel model)
     {
-        return new Rapor_Bilgileri
+        if (!ModelState.IsValid)
+        {
+            return View("Index", model);
+        }
+
+        var raporKayit = KaydetRapor(model);
+        _context.Rapor_Bilgileri.Add(raporKayit);
+        _context.SaveChanges();
+
+        return View("RaporYazdir", model);
+    }
+
+    private Rapor_Bilgileri KaydetRapor(RaporViewModel model)
+    {
+        string formattedTanilar = model.Tanilar != null && model.Tanilar.Any() 
+            ? string.Join(", ", model.Tanilar.Select(t => t.Trim('"'))) 
+            : "";
+
+        var rapor = new Rapor_Bilgileri
         {
             HastaNo = model.HastaNo,
             BaslangicTarihi = model.BaslangicTarihi,
             BitisTarihi = model.BitisTarihi,
             RaporBitiminde = model.RaporBitiminde,
             Rapor_Notu = model.Rapor_Notu,
-            Tanilar = string.Join(", ", model.Tanilar),
+            Tanilar = formattedTanilar,
             OnaylayacakDoktor = model.OnaylayacakDoktor,
             OnaylananServis = model.OnaylananServis
         };
+
+        return rapor;
     }
 }

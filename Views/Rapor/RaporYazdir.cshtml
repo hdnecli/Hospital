@@ -1,0 +1,24 @@
+@model RaporViewModel
+
+<h2>Rapor Önizleme</h2>
+
+<div id="raporIcerik">
+    <p><strong>Hasta No:</strong> @Model.HastaNo</p>
+    <p><strong>Başlangıç Tarihi:</strong> @Model.BaslangicTarihi.ToShortDateString()</p>
+    <p><strong>Bitiş Tarihi:</strong> @Model.BitisTarihi.ToShortDateString()</p>
+    <p><strong>Rapor Bitiminde:</strong> @Model.RaporBitiminde</p>
+    <p><strong>Rapor Notu:</strong> @Model.Rapor_Notu</p>
+    <p><strong>Tanılar:</strong> @(string.Join(", ", Model.Tanilar))</p>
+    <p><strong>Onaylayacak Doktor:</strong> @Model.OnaylayacakDoktor</p>
+    <p><strong>Onaylanan Servis:</strong> @Model.OnaylananServis</p>
+</div>
+
+<button onclick="window.print()">Yazdır</button>
+
+@section Scripts {
+    <script>
+        window.onload = function() {
+            window.print();
+        };
+    </script>
+}

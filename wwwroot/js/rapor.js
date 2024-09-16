@@ -23,19 +23,19 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     }
-//
+
     const form = document.querySelector('form');
     const tanilarInput = document.getElementById('Tanilar');
 
     function updateTanilarInput() {
         const seciliTanilar = Array.from(document.querySelectorAll('#selectedList input[type="checkbox"]:checked'))
-            .map(checkbox => checkbox.nextElementSibling.textContent.split(' - ')[0]);
-        tanilarInput.value = seciliTanilar.join(', ');
+            .map(checkbox => checkbox.nextElementSibling.textContent.split(' - ')[0].trim());
+        document.getElementById('Tanilar').value = seciliTanilar.join(', ');
     }
 
     document.getElementById('selectedList').addEventListener('change', updateTanilarInput);
 
-    form.addEventListener('submit', function(e) {
+    document.getElementById('kaydetBtn').addEventListener('click', function(e) {
         e.preventDefault();
 
         const raporBitiminde = document.querySelector('.rapor-btn.active').dataset.type;
@@ -43,17 +43,31 @@ document.addEventListener('DOMContentLoaded', function() {
 
         updateTanilarInput();
 
-        console.log('Gönderilen Tanılar:', tanilarInput.value);
-
         form.submit();
     });
-//
-});
 
-document.querySelectorAll('.rapor-btn').forEach(button => {
-    button.addEventListener('click', function() {
-        document.querySelectorAll('.rapor-btn').forEach(btn => btn.classList.remove('active'));
-        this.classList.add('active');
+    document.getElementById('kaydetYazdirBtn').addEventListener('click', function(e) {
+        e.preventDefault();
+
+        const raporBitiminde = document.querySelector('.rapor-btn.active').dataset.type;
+        document.getElementById('RaporBitiminde').value = raporBitiminde;
+
+        updateTanilarInput();
+
+        var form = document.getElementById('raporForm');
+        form.action = '/Rapor/RaporYazdir';
+        form.submit();
+    });
+
+    // Rapor Bitiminde butonlarının işlevselliği
+    document.querySelectorAll('#raporTurBtnGroup .rapor-btn').forEach(function(btn) {
+        btn.addEventListener('click', function() {
+            document.querySelectorAll('#raporTurBtnGroup .rapor-btn').forEach(function(b) {
+                b.classList.remove('active');
+            });
+            this.classList.add('active');
+            document.getElementById('RaporBitiminde').value = this.getAttribute('data-type');
+        });
     });
 });
 
@@ -80,4 +94,24 @@ function addToSelected(id, name, code) {
     if (!added) {
         selectedList.appendChild(taniItem);
     }
+
+    updateTanilarInput();
+}
+
+function updateTanilarInput() {
+    const seciliTanilar = Array.from(document.querySelectorAll('#selectedList input[type="checkbox"]:checked'))
+        .map(checkbox => checkbox.nextElementSibling.textContent.split(' - ')[0].trim());
+    document.getElementById('Tanilar').value = seciliTanilar.join(', ');
+}
+
+document.querySelectorAll('.rapor-btn').forEach(button => {
+    button.addEventListener('click', function() {
+        document.querySelectorAll('.rapor-btn').forEach(btn => btn.classList.remove('active'));
+        this.classList.add('active');
+    });
+});
+
+function openTani() {
+    const url = `/Tani/Index?hastaNo=${hastaNo}`;
+    window.location.href = url;
 }
